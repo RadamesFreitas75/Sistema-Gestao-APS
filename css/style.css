@@ -68,3 +68,145 @@ footer {
     margin-top: 50px;
     background-color: #ddd;
 }
+
+.pagina-login {
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background-color: #f4f7f6;
+}
+
+
+.login-container {
+    width: 100%;
+
+    max-width: 450px;
+
+    padding: 20px;
+}
+
+
+.login-card {
+    background-color: white;
+
+    padding: 40px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+}
+
+
+.login-cabecalho {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+.login-icone {
+    font-size: 50px;
+
+    margin-bottom: 15px;
+}
+
+
+.login-cabecalho h1 {
+    color: #087f5b;
+
+    font-size: 25px;
+
+    margin-bottom: 10px;
+}
+
+
+.login-cabecalho p {
+    color: #666;
+
+    font-size: 16px;
+}
+
+
+.campo {
+    margin-bottom: 20px;
+}
+
+
+.campo label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: bold;
+
+    color: #333;
+}
+
+
+.campo input {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+.campo input:focus {
+    border-color: #087f5b;
+}
+
+
+.botao-login {
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background-color: #087f5b;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.botao-login:hover {
+    background-color: #056b4d;
+}
+
+
+.voltar {
+    display: block;
+
+    text-align: center;
+
+    margin-top: 20px;
+
+    color: #087f5b;
+
+    text-decoration: none;
+}
+
+
+.voltar:hover {
+    text-decoration: underline;
+}
