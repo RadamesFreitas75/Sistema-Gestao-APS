@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Unidades de Saúde - Sistema de Gestão APS</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body class="pagina-dashboard">
+
+
+    <!-- CABEÇALHO -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Sistema de Gestão da Atenção Primária
+            </h1>
+
+            <p>
+                Painel de gerenciamento
+            </p>
+
+        </div>
+
+        <div class="usuario-logado">
+
+            <span>👤</span>
+
+            <span>
+                Administrador
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <!-- ÁREA PRINCIPAL -->
+
+    <main class="dashboard-container">
+
+
+        <!-- MENU LATERAL -->
+
+        <aside class="menu-lateral">
+
+            <h2>
+                Menu
+            </h2>
+
+            <a href="dashboard.html">
+                🏠 Dashboard
+            </a>
+
+            <a href="usuarios.html">
+                👥 Usuários
+            </a>
+
+            <a href="pacientes.html">
+                🏥 Pacientes
+            </a>
+
+            <a href="agendamentos.html">
+                📅 Agendamentos
+            </a>
+
+            <a
+                href="unidades.html"
+                class="menu-ativo"
+            >
+                🏨 Unidades de Saúde
+            </a>
+
+            <a href="indicadores.html">
+                📊 Indicadores
+            </a>
+
+            <a href="../index.html">
+                🚪 Sair
+            </a>
+
+        </aside>
+
+
+        <!-- CONTEÚDO -->
+
+        <section class="dashboard-content">
+
+
+            <div class="dashboard-titulo">
+
+                <h2>
+                    Unidades de Saúde
+                </h2>
+
+                <p>
+                    Gerenciamento das unidades de saúde
+                    da Atenção Primária à Saúde
+                </p>
+
+            </div>
+
+
+            <!-- BOTÃO -->
+
+            <div class="barra-acoes">
+
+                <button
+                    class="botao"
+                    onclick="abrirFormularioUnidade()"
+                >
+                    + Nova unidade
+                </button>
+
+            </div>
+
+
+            <!-- FORMULÁRIO -->
+
+            <section
+                id="formularioUnidade"
+                class="card formulario-paciente"
+                style="display: none;"
+            >
+
+                <h3>
+                    Cadastro de unidade de saúde
+                </h3>
+
+
+                <form id="formUnidade">
+
+
+                    <div class="form-grid">
+
+
+                        <div class="campo">
+
+                            <label for="nomeUnidade">
+                                Nome da unidade
+                            </label>
+
+                            <input
+                                type="text"
+                                id="nomeUnidade"
+                                placeholder="Nome da unidade"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="tipoUnidade">
+                                Tipo de unidade
+                            </label>
+
+                            <select
+                                id="tipoUnidade"
+                                required
+                            >
+
+                                <option value="">
+                                    Selecione
+                                </option>
+
+                                <option value="UBS">
+                                    UBS
+                                </option>
+
+                                <option value="Posto de Saúde">
+                                    Posto de Saúde
+                                </option>
+
+                                <option value="Centro de Saúde">
+                                    Centro de Saúde
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="enderecoUnidade">
+                                Endereço
+                            </label>
+
+                            <input
+                                type="text"
+                                id="enderecoUnidade"
+                                placeholder="Endereço da unidade"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="telefoneUnidade">
+                                Telefone
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="telefoneUnidade"
+                                placeholder="Telefone"
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="responsavelUnidade">
+                                Responsável
+                            </label>
+
+                            <input
+                                type="text"
+                                id="responsavelUnidade"
+                                placeholder="Nome do responsável"
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="statusUnidade">
+                                Status
+                            </label>
+
+                            <select
+                                id="statusUnidade"
+                                required
+                            >
+
+                                <option value="Ativa">
+                                    Ativa
+                                </option>
+
+                                <option value="Inativa">
+                                    Inativa
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-acoes">
+
+                        <button
+                            type="submit"
+                            class="botao"
+                        >
+                            Salvar unidade
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="botao botao-secundario"
+                            onclick="fecharFormularioUnidade()"
+                        >
+                            Cancelar
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </section>
+
+
+            <!-- TABELA -->
+
+            <section class="card tabela-container">
+
+
+                <div class="tabela-cabecalho">
+
+                    <div>
+
+                        <h3>
+                            Unidades cadastradas
+                        </h3>
+
+                        <p>
+                            Lista das unidades de saúde
+                            registradas no sistema
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <input
+                            type="text"
+                            id="buscarUnidade"
+                            class="campo-busca"
+                            placeholder="🔎 Buscar unidade..."
+                            onkeyup="buscarUnidade()"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="tabela-scroll">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Unidade
+                                </th>
+
+                                <th>
+                                    Tipo
+                                </th>
+
+                                <th>
+                                    Endereço
+                                </th>
+
+                                <th>
+                                    Telefone
+                                </th>
+
+                                <th>
+                                    Responsável
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Ações
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="listaUnidades">
+
+
+                            <tr>
+
+                                <td>
+                                    UBS Nova Esperança
+                                </td>
+
+                                <td>
+                                    UBS
+                                </td>
+
+                                <td>
+                                    Rua Principal, 100
+                                </td>
+
+                                <td>
+                                    (86) 3333-3333
+                                </td>
+
+                                <td>
+                                    Maria Souza
+                                </td>
+
+                                <td>
+                                    <span class="status-ativo">
+                                        Ativa
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        class="botao-acao"
+                                        onclick="visualizarUnidade('UBS Nova Esperança')"
+                                    >
+                                        👁️
+                                    </button>
+
+                                    <button
+                                        class="botao-acao botao-excluir"
+                                        onclick="excluirUnidade(this)"
+                                    >
+                                        🗑️
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    UBS Centro
+                                </td>
+
+                                <td>
+                                    UBS
+                                </td>
+
+                                <td>
+                                    Avenida Central, 250
+                                </td>
+
+                                <td>
+                                    (86) 3444-4444
+                                </td>
+
+                                <td>
+                                    João Oliveira
+                                </td>
+
+                                <td>
+                                    <span class="status-ativo">
+                                        Ativa
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        class="botao-acao"
+                                        onclick="visualizarUnidade('UBS Centro')"
+                                    >
+                                        👁️
+                                    </button>
+
+                                    <button
+                                        class="botao-acao botao-excluir"
+                                        onclick="excluirUnidade(this)"
+                                    >
+                                        🗑️
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+
+    <footer class="rodape">
+
+        <p>
+            Sistema de Gestão da Atenção Primária à Saúde
+        </p>
+
+        <p>
+            Grupo 2
+        </p>
+
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Agendamentos - Sistema de Gestão APS</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<body class="pagina-dashboard">
+
+
+    <!-- CABEÇALHO -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Sistema de Gestão da Atenção Primária
+            </h1>
+
+            <p>
+                Painel de gerenciamento
+            </p>
+
+        </div>
+
+
+        <div class="usuario-logado">
+
+            <span>👤</span>
+
+            <span>
+                Administrador
+            </span>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ÁREA PRINCIPAL -->
+
+    <main class="dashboard-container">
+
+
+        <!-- MENU LATERAL -->
+
+        <aside class="menu-lateral">
+
+            <h2>
+                Menu
+            </h2>
+
+
+            <a href="dashboard.html">
+                🏠 Dashboard
+            </a>
+
+
+            <a href="usuarios.html">
+                👥 Usuários
+            </a>
+
+
+            <a href="pacientes.html">
+                🏥 Pacientes
+            </a>
+
+
+            <a
+                href="agendamentos.html"
+                class="menu-ativo"
+            >
+                📅 Agendamentos
+            </a>
+
+
+            <a href="unidades.html">
+                🏨 Unidades de Saúde
+            </a>
+
+
+            <a href="indicadores.html">
+                📊 Indicadores
+            </a>
+
+
+            <a href="../index.html">
+                🚪 Sair
+            </a>
+
+        </aside>
+
+
+
+        <!-- CONTEÚDO -->
+
+        <section class="dashboard-content">
+
+
+            <!-- TÍTULO -->
+
+            <div class="dashboard-titulo">
+
+                <h2>
+                    Agendamentos
+                </h2>
+
+                <p>
+                    Gerenciamento dos atendimentos
+                    agendados na Atenção Primária à Saúde
+                </p>
+
+            </div>
+
+
+
+            <!-- BOTÃO -->
+
+            <div class="barra-acoes">
+
+                <button
+                    class="botao"
+                    onclick="abrirFormularioAgendamento()"
+                >
+                    + Novo agendamento
+                </button>
+
+            </div>
+
+
+
+            <!-- FORMULÁRIO -->
+
+            <section
+                id="formularioAgendamento"
+                class="card formulario-paciente"
+                style="display: none;"
+            >
+
+                <h3>
+                    Novo agendamento
+                </h3>
+
+
+                <form id="formAgendamento">
+
+
+                    <div class="form-grid">
+
+
+                        <div class="campo">
+
+                            <label for="pacienteAgendamento">
+                                Paciente
+                            </label>
+
+                            <input
+                                type="text"
+                                id="pacienteAgendamento"
+                                placeholder="Nome do paciente"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="profissionalAgendamento">
+                                Profissional
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profissionalAgendamento"
+                                placeholder="Nome do profissional"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="dataAgendamento">
+                                Data
+                            </label>
+
+                            <input
+                                type="date"
+                                id="dataAgendamento"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="horaAgendamento">
+                                Horário
+                            </label>
+
+                            <input
+                                type="time"
+                                id="horaAgendamento"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="tipoAtendimento">
+                                Tipo de atendimento
+                            </label>
+
+                            <select
+                                id="tipoAtendimento"
+                                required
+                            >
+
+                                <option value="">
+                                    Selecione
+                                </option>
+
+                                <option value="Consulta médica">
+                                    Consulta médica
+                                </option>
+
+                                <option value="Consulta de enfermagem">
+                                    Consulta de enfermagem
+                                </option>
+
+                                <option value="Odontologia">
+                                    Odontologia
+                                </option>
+
+                                <option value="Vacinação">
+                                    Vacinação
+                                </option>
+
+                                <option value="Procedimento">
+                                    Procedimento
+                                </option>
+
+                                <option value="Acompanhamento">
+                                    Acompanhamento
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="unidadeAgendamento">
+                                Unidade de saúde
+                            </label>
+
+                            <select
+                                id="unidadeAgendamento"
+                                required
+                            >
+
+                                <option value="">
+                                    Selecione
+                                </option>
+
+                                <option value="UBS Nova Esperança">
+                                    UBS Nova Esperança
+                                </option>
+
+                                <option value="UBS Centro">
+                                    UBS Centro
+                                </option>
+
+                                <option value="UBS São José">
+                                    UBS São José
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-acoes">
+
+
+                        <button
+                            type="submit"
+                            class="botao"
+                        >
+                            Salvar agendamento
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="botao botao-secundario"
+                            onclick="fecharFormularioAgendamento()"
+                        >
+                            Cancelar
+                        </button>
+
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+
+            <!-- LISTA -->
+
+            <section class="card tabela-container">
+
+
+                <div class="tabela-cabecalho">
+
+
+                    <div>
+
+                        <h3>
+                            Agendamentos registrados
+                        </h3>
+
+                        <p>
+                            Lista de atendimentos agendados
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <input
+                            type="text"
+                            id="buscarAgendamento"
+                            class="campo-busca"
+                            placeholder="🔎 Buscar agendamento..."
+                            onkeyup="buscarAgendamento()"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="tabela-scroll">
+
+
+                    <table>
+
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Paciente
+                                </th>
+
+                                <th>
+                                    Profissional
+                                </th>
+
+                                <th>
+                                    Data
+                                </th>
+
+                                <th>
+                                    Horário
+                                </th>
+
+                                <th>
+                                    Atendimento
+                                </th>
+
+                                <th>
+                                    Unidade
+                                </th>
+
+                                <th>
+                                    Ações
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+
+                        <tbody id="listaAgendamentos">
+
+
+                            <tr>
+
+                                <td>
+                                    Maria da Silva
+                                </td>
+
+                                <td>
+                                    Dr. João Pereira
+                                </td>
+
+                                <td>
+                                    15/09/2026
+                                </td>
+
+                                <td>
+                                    08:00
+                                </td>
+
+                                <td>
+                                    Consulta médica
+                                </td>
+
+                                <td>
+                                    UBS Nova Esperança
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        class="botao-acao"
+                                        onclick="visualizarAgendamento('Maria da Silva')"
+                                    >
+                                        👁️
+                                    </button>
+
+
+                                    <button
+                                        class="botao-acao botao-excluir"
+                                        onclick="excluirAgendamento(this)"
+                                    >
+                                        🗑️
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr>
+
+                                <td>
+                                    João Pereira
+                                </td>
+
+                                <td>
+                                    Enf. Ana Souza
+                                </td>
+
+                                <td>
+                                    15/09/2026
+                                </td>
+
+                                <td>
+                                    09:00
+                                </td>
+
+                                <td>
+                                    Consulta de enfermagem
+                                </td>
+
+                                <td>
+                                    UBS Centro
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        class="botao-acao"
+                                        onclick="visualizarAgendamento('João Pereira')"
+                                    >
+                                        👁️
+                                    </button>
+
+
+                                    <button
+                                        class="botao-acao botao-excluir"
+                                        onclick="excluirAgendamento(this)"
+                                    >
+                                        🗑️
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- RODAPÉ -->
+
+    <footer class="rodape">
+
+        <p>
+            Sistema de Gestão da Atenção Primária à Saúde
+        </p>
+
+        <p>
+            Grupo 2
+        </p>
+
+    </footer>
+
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

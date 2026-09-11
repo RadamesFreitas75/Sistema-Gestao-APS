@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Indicadores - Sistema de Gestão APS</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<body class="pagina-dashboard">
+
+
+    <!-- CABEÇALHO -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Sistema de Gestão da Atenção Primária
+            </h1>
+
+            <p>
+                Painel de gerenciamento
+            </p>
+
+        </div>
+
+
+        <div class="usuario-logado">
+
+            <span>👤</span>
+
+            <span>
+                Administrador
+            </span>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ÁREA PRINCIPAL -->
+
+    <main class="dashboard-container">
+
+
+        <!-- MENU LATERAL -->
+
+        <aside class="menu-lateral">
+
+            <h2>
+                Menu
+            </h2>
+
+
+            <a href="dashboard.html">
+                🏠 Dashboard
+            </a>
+
+
+            <a href="usuarios.html">
+                👥 Usuários
+            </a>
+
+
+            <a href="pacientes.html">
+                🏥 Pacientes
+            </a>
+
+
+            <a href="agendamentos.html">
+                📅 Agendamentos
+            </a>
+
+
+            <a href="unidades.html">
+                🏨 Unidades de Saúde
+            </a>
+
+
+            <a
+                href="indicadores.html"
+                class="menu-ativo"
+            >
+                📊 Indicadores
+            </a>
+
+
+            <a href="../index.html">
+                🚪 Sair
+            </a>
+
+        </aside>
+
+
+
+        <!-- CONTEÚDO -->
+
+        <section class="dashboard-content">
+
+
+            <!-- TÍTULO -->
+
+            <div class="dashboard-titulo">
+
+                <h2>
+                    Indicadores de Saúde
+                </h2>
+
+                <p>
+                    Acompanhamento dos principais indicadores
+                    da Atenção Primária à Saúde
+                </p>
+
+            </div>
+
+
+
+            <!-- FILTROS -->
+
+            <section class="card filtros-indicadores">
+
+                <h3>
+                    Filtros
+                </h3>
+
+
+                <div class="form-grid">
+
+
+                    <div class="campo">
+
+                        <label for="periodoIndicador">
+                            Período
+                        </label>
+
+                        <select id="periodoIndicador">
+
+                            <option value="2026">
+                                2026
+                            </option>
+
+                            <option value="2025">
+                                2025
+                            </option>
+
+                            <option value="2024">
+                                2024
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="unidadeIndicador">
+                            Unidade de Saúde
+                        </label>
+
+                        <select id="unidadeIndicador">
+
+                            <option value="todas">
+                                Todas as unidades
+                            </option>
+
+                            <option value="nova-esperanca">
+                                UBS Nova Esperança
+                            </option>
+
+                            <option value="centro">
+                                UBS Centro
+                            </option>
+
+                            <option value="sao-jose">
+                                UBS São José
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+                <button
+                    class="botao"
+                    onclick="filtrarIndicadores()"
+                >
+                    Aplicar filtros
+                </button>
+
+            </section>
+
+
+
+            <!-- CARDS DOS INDICADORES -->
+
+            <section class="indicadores-grid">
+
+
+                <!-- INDICADOR 1 -->
+
+                <div class="indicador-card">
+
+                    <div class="indicador-topo">
+
+                        <span class="indicador-icone">
+                            🩺
+                        </span>
+
+                        <span class="indicador-status status-bom">
+                            Bom
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Acompanhamento de gestantes
+                    </h3>
+
+
+                    <div class="indicador-valor">
+                        82%
+                    </div>
+
+
+                    <p>
+                        Percentual de gestantes acompanhadas
+                        pela equipe de saúde.
+                    </p>
+
+
+                    <div class="barra-indicador">
+
+                        <div
+                            class="barra-progresso"
+                            style="width: 82%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- INDICADOR 2 -->
+
+                <div class="indicador-card">
+
+                    <div class="indicador-topo">
+
+                        <span class="indicador-icone">
+                            💉
+                        </span>
+
+                        <span class="indicador-status status-otimo">
+                            Ótimo
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Cobertura vacinal
+                    </h3>
+
+
+                    <div class="indicador-valor">
+                        94%
+                    </div>
+
+
+                    <p>
+                        Cobertura vacinal da população
+                        acompanhada.
+                    </p>
+
+
+                    <div class="barra-indicador">
+
+                        <div
+                            class="barra-progresso"
+                            style="width: 94%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- INDICADOR 3 -->
+
+                <div class="indicador-card">
+
+                    <div class="indicador-topo">
+
+                        <span class="indicador-icone">
+                            🦷
+                        </span>
+
+                        <span class="indicador-status status-bom">
+                            Bom
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Saúde Bucal
+                    </h3>
+
+
+                    <div class="indicador-valor">
+                        76%
+                    </div>
+
+
+                    <p>
+                        Acompanhamento das ações
+                        de saúde bucal.
+                    </p>
+
+
+                    <div class="barra-indicador">
+
+                        <div
+                            class="barra-progresso"
+                            style="width: 76%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- INDICADOR 4 -->
+
+                <div class="indicador-card">
+
+                    <div class="indicador-topo">
+
+                        <span class="indicador-icone">
+                            ❤️
+                        </span>
+
+                        <span class="indicador-status status-atencao">
+                            Atenção
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Hipertensão e Diabetes
+                    </h3>
+
+
+                    <div class="indicador-valor">
+                        61%
+                    </div>
+
+
+                    <p>
+                        Acompanhamento de pessoas com
+                        condições crônicas.
+                    </p>
+
+
+                    <div class="barra-indicador">
+
+                        <div
+                            class="barra-progresso"
+                            style="width: 61%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- RESUMO -->
+
+            <section class="card resumo-indicadores">
+
+                <h3>
+                    Resumo dos indicadores
+                </h3>
+
+
+                <div class="resumo-grid">
+
+
+                    <div class="resumo-item">
+
+                        <span>
+                            Total de indicadores
+                        </span>
+
+                        <strong>
+                            4
+                        </strong>
+
+                    </div>
+
+
+                    <div class="resumo-item">
+
+                        <span>
+                            Indicadores ótimos
+                        </span>
+
+                        <strong>
+                            1
+                        </strong>
+
+                    </div>
+
+
+                    <div class="resumo-item">
+
+                        <span>
+                            Indicadores bons
+                        </span>
+
+                        <strong>
+                            2
+                        </strong>
+
+                    </div>
+
+
+                    <div class="resumo-item">
+
+                        <span>
+                            Indicadores em atenção
+                        </span>
+
+                        <strong>
+                            1
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- RODAPÉ -->
+
+    <footer class="rodape">
+
+        <p>
+            Sistema de Gestão da Atenção Primária à Saúde
+        </p>
+
+        <p>
+            Grupo 2
+        </p>
+
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

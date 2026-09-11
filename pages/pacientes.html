@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Pacientes - Sistema de Gestão APS</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<body class="pagina-dashboard">
+
+    <!-- CABEÇALHO -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Sistema de Gestão da Atenção Primária
+            </h1>
+
+            <p>
+                Painel de gerenciamento
+            </p>
+
+        </div>
+
+        <div class="usuario-logado">
+
+            <span>👤</span>
+
+            <span>
+                Administrador
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <!-- ÁREA PRINCIPAL -->
+
+    <main class="dashboard-container">
+
+
+        <!-- MENU LATERAL -->
+
+        <aside class="menu-lateral">
+
+            <h2>
+                Menu
+            </h2>
+
+
+            <a href="dashboard.html">
+                🏠 Dashboard
+            </a>
+
+
+            <a href="usuarios.html">
+                👥 Usuários
+            </a>
+
+
+            <a
+                href="pacientes.html"
+                class="menu-ativo"
+            >
+                🏥 Pacientes
+            </a>
+
+
+            <a href="agendamentos.html">
+                📅 Agendamentos
+            </a>
+
+
+            <a href="unidades.html">
+                🏨 Unidades de Saúde
+            </a>
+
+
+            <a href="indicadores.html">
+                📊 Indicadores
+            </a>
+
+
+            <a href="../index.html">
+                🚪 Sair
+            </a>
+
+        </aside>
+
+
+        <!-- CONTEÚDO -->
+
+        <section class="dashboard-content">
+
+
+            <!-- TÍTULO -->
+
+            <div class="dashboard-titulo">
+
+                <h2>
+                    Pacientes
+                </h2>
+
+                <p>
+                    Gerenciamento dos pacientes cadastrados
+                    na Atenção Primária à Saúde
+                </p>
+
+            </div>
+
+
+            <!-- BOTÃO -->
+
+            <div class="barra-acoes">
+
+                <button
+                    class="botao"
+                    onclick="abrirFormularioPaciente()"
+                >
+                    + Novo paciente
+                </button>
+
+            </div>
+
+
+            <!-- FORMULÁRIO -->
+
+            <section
+                id="formularioPaciente"
+                class="card formulario-paciente"
+                style="display: none;"
+            >
+
+                <h3>
+                    Cadastro de paciente
+                </h3>
+
+
+                <form id="formPaciente">
+
+
+                    <div class="form-grid">
+
+
+                        <div class="campo">
+
+                            <label for="nomePaciente">
+                                Nome completo
+                            </label>
+
+                            <input
+                                type="text"
+                                id="nomePaciente"
+                                placeholder="Digite o nome completo"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="cpfPaciente">
+                                CPF
+                            </label>
+
+                            <input
+                                type="text"
+                                id="cpfPaciente"
+                                placeholder="Digite o CPF"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="dataNascimento">
+                                Data de nascimento
+                            </label>
+
+                            <input
+                                type="date"
+                                id="dataNascimento"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="sexoPaciente">
+                                Sexo
+                            </label>
+
+                            <select id="sexoPaciente" required>
+
+                                <option value="">
+                                    Selecione
+                                </option>
+
+                                <option value="Feminino">
+                                    Feminino
+                                </option>
+
+                                <option value="Masculino">
+                                    Masculino
+                                </option>
+
+                                <option value="Outro">
+                                    Outro
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="telefonePaciente">
+                                Telefone
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="telefonePaciente"
+                                placeholder="Digite o telefone"
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="enderecoPaciente">
+                                Endereço
+                            </label>
+
+                            <input
+                                type="text"
+                                id="enderecoPaciente"
+                                placeholder="Digite o endereço"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-acoes">
+
+                        <button
+                            type="submit"
+                            class="botao"
+                        >
+                            Salvar paciente
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="botao botao-secundario"
+                            onclick="fecharFormularioPaciente()"
+                        >
+                            Cancelar
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </section>
+
+
+            <!-- LISTA DE PACIENTES -->
+
+            <section class="card tabela-container">
+
+                <div class="tabela-cabecalho">
+
+                    <div>
+
+                        <h3>
+                            Pacientes cadastrados
+                        </h3>
+
+                        <p>
+                            Lista de pacientes registrados
+                            no sistema
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <input
+                            type="text"
+                            id="buscarPaciente"
+                            class="campo-busca"
+                            placeholder="🔎 Buscar paciente..."
+                            onkeyup="buscarPaciente()"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="tabela-scroll">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Nome
+                                </th>
+
+                                <th>
+                                    CPF
+                                </th>
+
+                                <th>
+                                    Nascimento
+                                </th>
+
+                                <th>
+                                    Sexo
+                                </th>
+
+                                <th>
+                                    Telefone
+                                </th>
+
+                                <th>
+                                    Ações
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="listaPacientes">
+
+
+                            <tr>
+
+                                <td>
+                                    Maria da Silva
+                                </td>
+
+                                <td>
+                                    000.000.000-00
+                                </td>
+
+                                <td>
+                                    15/03/1985
+                                </td>
+
+                                <td>
+                                    Feminino
+                                </td>
+
+                                <td>
+                                    (86) 99999-9999
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        class="botao-acao"
+                                        onclick="visualizarPaciente('Maria da Silva')"
+                                    >
+                                        👁️
+                                    </button>
+
+                                    <button
+                                        class="botao-acao botao-excluir"
+                                        onclick="excluirPaciente(this)"
+                                    >
+                                        🗑️
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    João Pereira
+                                </td>
+
+                                <td>
+                                    111.111.111-11
+                                </td>
+
+                                <td>
+                                    22/08/1978
+                                </td>
+
+                                <td>
+                                    Masculino
+                                </td>
+
+                                <td>
+                                    (86) 98888-8888
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        class="botao-acao"
+                                        onclick="visualizarPaciente('João Pereira')"
+                                    >
+                                        👁️
+                                    </button>
+
+                                    <button
+                                        class="botao-acao botao-excluir"
+                                        onclick="excluirPaciente(this)"
+                                    >
+                                        🗑️
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+
+    <footer class="rodape">
+
+        <p>
+            Sistema de Gestão da Atenção Primária à Saúde
+        </p>
+
+        <p>
+            Grupo 2
+        </p>
+
+    </footer>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>
