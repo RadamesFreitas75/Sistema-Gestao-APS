@@ -5,11 +5,17 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Unidades de Saúde - Sistema de Gestão APS</title>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
 
 </head>
 
@@ -32,6 +38,7 @@
 
         </div>
 
+
         <div class="usuario-logado">
 
             <span>👤</span>
@@ -43,6 +50,7 @@
         </div>
 
     </header>
+
 
 
     <!-- ÁREA PRINCIPAL -->
@@ -58,32 +66,44 @@
                 Menu
             </h2>
 
+
             <a href="dashboard.html">
-                🏠 Dashboard
+                📊 Dashboard
             </a>
+
 
             <a href="usuarios.html">
                 👥 Usuários
             </a>
 
+
             <a href="pacientes.html">
-                🏥 Pacientes
+                🧑‍⚕️ Pacientes
             </a>
+
+
+            <a href="profissionais.html">
+                👨‍⚕️ Profissionais
+            </a>
+
 
             <a href="agendamentos.html">
                 📅 Agendamentos
             </a>
 
+
             <a
                 href="unidades.html"
                 class="menu-ativo"
             >
-                🏨 Unidades de Saúde
+                🏥 Unidades de Saúde
             </a>
+
 
             <a href="indicadores.html">
                 📊 Indicadores
             </a>
+
 
             <a href="../index.html">
                 🚪 Sair
@@ -92,10 +112,13 @@
         </aside>
 
 
+
         <!-- CONTEÚDO -->
 
         <section class="dashboard-content">
 
+
+            <!-- TÍTULO -->
 
             <div class="dashboard-titulo">
 
@@ -111,6 +134,7 @@
             </div>
 
 
+
             <!-- BOTÃO -->
 
             <div class="barra-acoes">
@@ -123,6 +147,7 @@
                 </button>
 
             </div>
+
 
 
             <!-- FORMULÁRIO -->
@@ -144,6 +169,8 @@
                     <div class="form-grid">
 
 
+                        <!-- NOME -->
+
                         <div class="campo">
 
                             <label for="nomeUnidade">
@@ -160,37 +187,27 @@
                         </div>
 
 
+
+                        <!-- CNES -->
+
                         <div class="campo">
 
-                            <label for="tipoUnidade">
-                                Tipo de unidade
+                            <label for="cnesUnidade">
+                                CNES
                             </label>
 
-                            <select
-                                id="tipoUnidade"
+                            <input
+                                type="text"
+                                id="cnesUnidade"
+                                placeholder="Número do CNES"
                                 required
                             >
 
-                                <option value="">
-                                    Selecione
-                                </option>
-
-                                <option value="UBS">
-                                    UBS
-                                </option>
-
-                                <option value="Posto de Saúde">
-                                    Posto de Saúde
-                                </option>
-
-                                <option value="Centro de Saúde">
-                                    Centro de Saúde
-                                </option>
-
-                            </select>
-
                         </div>
 
+
+
+                        <!-- ENDEREÇO -->
 
                         <div class="campo">
 
@@ -208,6 +225,9 @@
                         </div>
 
 
+
+                        <!-- TELEFONE -->
+
                         <div class="campo">
 
                             <label for="telefoneUnidade">
@@ -223,47 +243,11 @@
                         </div>
 
 
-                        <div class="campo">
-
-                            <label for="responsavelUnidade">
-                                Responsável
-                            </label>
-
-                            <input
-                                type="text"
-                                id="responsavelUnidade"
-                                placeholder="Nome do responsável"
-                            >
-
-                        </div>
-
-
-                        <div class="campo">
-
-                            <label for="statusUnidade">
-                                Status
-                            </label>
-
-                            <select
-                                id="statusUnidade"
-                                required
-                            >
-
-                                <option value="Ativa">
-                                    Ativa
-                                </option>
-
-                                <option value="Inativa">
-                                    Inativa
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
                     </div>
 
+
+
+                    <!-- AÇÕES -->
 
                     <div class="form-acoes">
 
@@ -291,12 +275,14 @@
             </section>
 
 
+
             <!-- TABELA -->
 
             <section class="card tabela-container">
 
 
                 <div class="tabela-cabecalho">
+
 
                     <div>
 
@@ -327,9 +313,12 @@
                 </div>
 
 
+
                 <div class="tabela-scroll">
 
+
                     <table>
+
 
                         <thead>
 
@@ -340,7 +329,7 @@
                                 </th>
 
                                 <th>
-                                    Tipo
+                                    CNES
                                 </th>
 
                                 <th>
@@ -352,14 +341,6 @@
                                 </th>
 
                                 <th>
-                                    Responsável
-                                </th>
-
-                                <th>
-                                    Status
-                                </th>
-
-                                <th>
                                     Ações
                                 </th>
 
@@ -368,108 +349,19 @@
                         </thead>
 
 
+
                         <tbody id="listaUnidades">
 
-
                             <tr>
 
-                                <td>
-                                    UBS Nova Esperança
-                                </td>
-
-                                <td>
-                                    UBS
-                                </td>
-
-                                <td>
-                                    Rua Principal, 100
-                                </td>
-
-                                <td>
-                                    (86) 3333-3333
-                                </td>
-
-                                <td>
-                                    Maria Souza
-                                </td>
-
-                                <td>
-                                    <span class="status-ativo">
-                                        Ativa
-                                    </span>
-                                </td>
-
-                                <td>
-
-                                    <button
-                                        class="botao-acao"
-                                        onclick="visualizarUnidade('UBS Nova Esperança')"
-                                    >
-                                        👁️
-                                    </button>
-
-                                    <button
-                                        class="botao-acao botao-excluir"
-                                        onclick="excluirUnidade(this)"
-                                    >
-                                        🗑️
-                                    </button>
-
+                                <td colspan="5">
+                                    Carregando unidades...
                                 </td>
 
                             </tr>
-
-
-                            <tr>
-
-                                <td>
-                                    UBS Centro
-                                </td>
-
-                                <td>
-                                    UBS
-                                </td>
-
-                                <td>
-                                    Avenida Central, 250
-                                </td>
-
-                                <td>
-                                    (86) 3444-4444
-                                </td>
-
-                                <td>
-                                    João Oliveira
-                                </td>
-
-                                <td>
-                                    <span class="status-ativo">
-                                        Ativa
-                                    </span>
-                                </td>
-
-                                <td>
-
-                                    <button
-                                        class="botao-acao"
-                                        onclick="visualizarUnidade('UBS Centro')"
-                                    >
-                                        👁️
-                                    </button>
-
-                                    <button
-                                        class="botao-acao botao-excluir"
-                                        onclick="excluirUnidade(this)"
-                                    >
-                                        🗑️
-                                    </button>
-
-                                </td>
-
-                            </tr>
-
 
                         </tbody>
+
 
                     </table>
 
@@ -481,6 +373,7 @@
         </section>
 
     </main>
+
 
 
     <!-- RODAPÉ -->
@@ -498,7 +391,453 @@
     </footer>
 
 
+
     <script src="../js/script.js"></script>
+
+
+
+    <!-- SCRIPT DA TELA -->
+
+    <script>
+
+        const API_UNIDADES =
+            "http://localhost:8080/api/unidades-saude";
+
+        let unidades = [];
+
+
+
+        /* =========================
+           ABRIR FORMULÁRIO
+        ========================= */
+
+        function abrirFormularioUnidade() {
+
+            document.getElementById(
+                "formularioUnidade"
+            ).style.display = "block";
+
+        }
+
+
+
+        /* =========================
+           FECHAR FORMULÁRIO
+        ========================= */
+
+        function fecharFormularioUnidade() {
+
+            document.getElementById(
+                "formularioUnidade"
+            ).style.display = "none";
+
+            document.getElementById(
+                "formUnidade"
+            ).reset();
+
+        }
+
+
+
+        /* =========================
+           CARREGAR UNIDADES
+        ========================= */
+
+        async function carregarUnidades() {
+
+            const tabela =
+                document.getElementById(
+                    "listaUnidades"
+                );
+
+            tabela.innerHTML = `
+                <tr>
+                    <td colspan="5">
+                        Carregando unidades...
+                    </td>
+                </tr>
+            `;
+
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        API_UNIDADES
+                    );
+
+
+                if (!resposta.ok) {
+
+                    throw new Error(
+                        "Erro ao carregar unidades"
+                    );
+
+                }
+
+
+                unidades =
+                    await resposta.json();
+
+
+                tabela.innerHTML = "";
+
+
+                if (unidades.length === 0) {
+
+                    tabela.innerHTML = `
+                        <tr>
+                            <td colspan="5">
+                                Nenhuma unidade cadastrada.
+                            </td>
+                        </tr>
+                    `;
+
+                    return;
+
+                }
+
+
+                unidades.forEach(
+                    unidade => {
+
+                        const tr =
+                            document.createElement(
+                                "tr"
+                            );
+
+
+                        tr.innerHTML = `
+
+                            <td>
+                                ${unidade.nome || ""}
+                            </td>
+
+                            <td>
+                                ${unidade.cnes || ""}
+                            </td>
+
+                            <td>
+                                ${unidade.endereco || ""}
+                            </td>
+
+                            <td>
+                                ${unidade.telefone || ""}
+                            </td>
+
+                            <td>
+
+                                <button
+                                    class="botao-acao"
+                                    onclick="visualizarUnidadeAPI(${unidade.id})"
+                                    title="Visualizar"
+                                >
+                                    👁️
+                                </button>
+
+                                <button
+                                    class="botao-acao botao-excluir"
+                                    onclick="excluirUnidadeAPI(${unidade.id})"
+                                    title="Excluir"
+                                >
+                                    🗑️
+                                </button>
+
+                            </td>
+
+                        `;
+
+
+                        tabela.appendChild(tr);
+
+                    }
+                );
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+
+                tabela.innerHTML = `
+                    <tr>
+                        <td colspan="5">
+                            Erro ao carregar as unidades.
+                        </td>
+                    </tr>
+                `;
+
+            }
+
+        }
+
+
+
+        /* =========================
+           SALVAR UNIDADE
+        ========================= */
+
+        document
+            .getElementById("formUnidade")
+            .addEventListener(
+                "submit",
+                async function (evento) {
+
+                    evento.preventDefault();
+
+
+                    const unidade = {
+
+                        nome:
+                            document.getElementById(
+                                "nomeUnidade"
+                            ).value,
+
+                        cnes:
+                            document.getElementById(
+                                "cnesUnidade"
+                            ).value,
+
+                        endereco:
+                            document.getElementById(
+                                "enderecoUnidade"
+                            ).value,
+
+                        telefone:
+                            document.getElementById(
+                                "telefoneUnidade"
+                            ).value
+
+                    };
+
+
+                    try {
+
+                        const resposta =
+                            await fetch(
+                                API_UNIDADES,
+                                {
+
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body:
+                                        JSON.stringify(
+                                            unidade
+                                        )
+
+                                }
+                            );
+
+
+                        if (!resposta.ok) {
+
+                            const erro =
+                                await resposta.text();
+
+                            console.error(
+                                "Erro da API:",
+                                erro
+                            );
+
+                            alert(
+                                "Não foi possível cadastrar a unidade."
+                            );
+
+                            return;
+
+                        }
+
+
+                        alert(
+                            "Unidade cadastrada com sucesso!"
+                        );
+
+
+                        fecharFormularioUnidade();
+
+                        carregarUnidades();
+
+
+                    } catch (erro) {
+
+                        console.error(erro);
+
+                        alert(
+                            "Erro de conexão com a API."
+                        );
+
+                    }
+
+                }
+            );
+
+
+
+        /* =========================
+           VISUALIZAR
+        ========================= */
+
+        function visualizarUnidadeAPI(id) {
+
+            const unidade =
+                unidades.find(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (!unidade) {
+                return;
+            }
+
+
+            alert(
+
+                "Unidade de Saúde\n\n" +
+
+                "Nome: " +
+                (unidade.nome || "") +
+
+                "\nCNES: " +
+                (unidade.cnes || "") +
+
+                "\nEndereço: " +
+                (unidade.endereco || "") +
+
+                "\nTelefone: " +
+                (unidade.telefone || "")
+
+            );
+
+        }
+
+
+
+        /* =========================
+           EXCLUIR
+        ========================= */
+
+        async function excluirUnidadeAPI(id) {
+
+            const confirmar =
+                confirm(
+                    "Deseja realmente excluir esta unidade?"
+                );
+
+
+            if (!confirmar) {
+                return;
+            }
+
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        `${API_UNIDADES}/${id}`,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
+
+                if (!resposta.ok) {
+
+                    alert(
+                        "Não foi possível excluir a unidade."
+                    );
+
+                    return;
+
+                }
+
+
+                alert(
+                    "Unidade excluída com sucesso!"
+                );
+
+
+                carregarUnidades();
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                alert(
+                    "Erro de conexão com a API."
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================
+           BUSCA
+        ========================= */
+
+        function buscarUnidade() {
+
+            const texto =
+                document
+                    .getElementById(
+                        "buscarUnidade"
+                    )
+                    .value
+                    .toLowerCase();
+
+
+            const linhas =
+                document.querySelectorAll(
+                    "#listaUnidades tr"
+                );
+
+
+            linhas.forEach(
+                linha => {
+
+                    const conteudo =
+                        linha.textContent
+                            .toLowerCase();
+
+
+                    if (
+                        conteudo.includes(
+                            texto
+                        )
+                    ) {
+
+                        linha.style.display = "";
+
+                    } else {
+
+                        linha.style.display =
+                            "none";
+
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================
+           INICIALIZAÇÃO
+        ========================= */
+
+        carregarUnidades();
+
+    </script>
+
 
 </body>
 

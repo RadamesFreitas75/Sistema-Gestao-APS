@@ -29,18 +29,46 @@ public class PacienteService {
     }
 
     public Paciente atualizar(Long id, Paciente paciente) {
-        Optional<Paciente> pacienteExistente = pacienteRepository.findById(id);
+
+        Optional<Paciente> pacienteExistente =
+                pacienteRepository.findById(id);
 
         if (pacienteExistente.isPresent()) {
-            Paciente pacienteAtual = pacienteExistente.get();
 
-            pacienteAtual.setNome(paciente.getNome());
-            pacienteAtual.setCpf(paciente.getCpf());
-            pacienteAtual.setDataNascimento(paciente.getDataNascimento());
-            pacienteAtual.setTelefone(paciente.getTelefone());
-            pacienteAtual.setEmail(paciente.getEmail());
+            Paciente pacienteAtual =
+                    pacienteExistente.get();
 
-            return pacienteRepository.save(pacienteAtual);
+            pacienteAtual.setNome(
+                    paciente.getNome()
+            );
+
+            pacienteAtual.setCpf(
+                    paciente.getCpf()
+            );
+
+            pacienteAtual.setDataNascimento(
+                    paciente.getDataNascimento()
+            );
+
+            pacienteAtual.setSexo(
+                    paciente.getSexo()
+            );
+
+            pacienteAtual.setTelefone(
+                    paciente.getTelefone()
+            );
+
+            pacienteAtual.setEndereco(
+                    paciente.getEndereco()
+            );
+
+            pacienteAtual.setEmail(
+                    paciente.getEmail()
+            );
+
+            return pacienteRepository.save(
+                    pacienteAtual
+            );
         }
 
         return null;

@@ -68,7 +68,7 @@
 
 
             <a href="dashboard.html">
-                🏠 Dashboard
+                📊 Dashboard
             </a>
 
 
@@ -78,7 +78,12 @@
 
 
             <a href="pacientes.html">
-                🏥 Pacientes
+                🧑‍⚕️ Pacientes
+            </a>
+
+
+            <a href="profissionais.html">
+                👨‍⚕️ Profissionais
             </a>
 
 
@@ -88,7 +93,7 @@
 
 
             <a href="unidades.html">
-                🏨 Unidades de Saúde
+                🏥 Unidades de Saúde
             </a>
 
 
@@ -118,142 +123,46 @@
             <div class="dashboard-titulo">
 
                 <h2>
-                    Indicadores de Saúde
+                    Indicadores
                 </h2>
 
                 <p>
-                    Acompanhamento dos principais indicadores
-                    da Atenção Primária à Saúde
+                    Indicadores operacionais do Sistema de Gestão APS
                 </p>
 
             </div>
 
 
 
-            <!-- FILTROS -->
+            <!-- CARDS -->
 
-            <section class="card filtros-indicadores">
-
-                <h3>
-                    Filtros
-                </h3>
+            <section class="cards-indicadores">
 
 
-                <div class="form-grid">
+                <!-- PACIENTES -->
 
+                <div class="card-indicador">
 
-                    <div class="campo">
-
-                        <label for="periodoIndicador">
-                            Período
-                        </label>
-
-                        <select id="periodoIndicador">
-
-                            <option value="2026">
-                                2026
-                            </option>
-
-                            <option value="2025">
-                                2025
-                            </option>
-
-                            <option value="2024">
-                                2024
-                            </option>
-
-                        </select>
-
+                    <div class="icone-indicador">
+                        👥
                     </div>
 
+                    <div>
 
-                    <div class="campo">
-
-                        <label for="unidadeIndicador">
-                            Unidade de Saúde
-                        </label>
-
-                        <select id="unidadeIndicador">
-
-                            <option value="todas">
-                                Todas as unidades
-                            </option>
-
-                            <option value="nova-esperanca">
-                                UBS Nova Esperança
-                            </option>
-
-                            <option value="centro">
-                                UBS Centro
-                            </option>
-
-                            <option value="sao-jose">
-                                UBS São José
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                </div>
-
-
-                <button
-                    class="botao"
-                    onclick="filtrarIndicadores()"
-                >
-                    Aplicar filtros
-                </button>
-
-            </section>
-
-
-
-            <!-- CARDS DOS INDICADORES -->
-
-            <section class="indicadores-grid">
-
-
-                <!-- INDICADOR 1 -->
-
-                <div class="indicador-card">
-
-                    <div class="indicador-topo">
-
-                        <span class="indicador-icone">
-                            🩺
-                        </span>
-
-                        <span class="indicador-status status-bom">
-                            Bom
-                        </span>
-
-                    </div>
-
-
-                    <h3>
-                        Acompanhamento de gestantes
-                    </h3>
-
-
-                    <div class="indicador-valor">
-                        82%
-                    </div>
-
-
-                    <p>
-                        Percentual de gestantes acompanhadas
-                        pela equipe de saúde.
-                    </p>
-
-
-                    <div class="barra-indicador">
+                        <h3>
+                            Total de Pacientes
+                        </h3>
 
                         <div
-                            class="barra-progresso"
-                            style="width: 82%;"
-                        ></div>
+                            class="valor-indicador"
+                            id="totalPacientes"
+                        >
+                            0
+                        </div>
+
+                        <span class="status-indicador">
+                            Cadastros ativos
+                        </span>
 
                     </div>
 
@@ -261,45 +170,30 @@
 
 
 
-                <!-- INDICADOR 2 -->
+                <!-- PROFISSIONAIS -->
 
-                <div class="indicador-card">
+                <div class="card-indicador">
 
-                    <div class="indicador-topo">
-
-                        <span class="indicador-icone">
-                            💉
-                        </span>
-
-                        <span class="indicador-status status-otimo">
-                            Ótimo
-                        </span>
-
+                    <div class="icone-indicador">
+                        👨‍⚕️
                     </div>
 
+                    <div>
 
-                    <h3>
-                        Cobertura vacinal
-                    </h3>
-
-
-                    <div class="indicador-valor">
-                        94%
-                    </div>
-
-
-                    <p>
-                        Cobertura vacinal da população
-                        acompanhada.
-                    </p>
-
-
-                    <div class="barra-indicador">
+                        <h3>
+                            Total de Profissionais
+                        </h3>
 
                         <div
-                            class="barra-progresso"
-                            style="width: 94%;"
-                        ></div>
+                            class="valor-indicador"
+                            id="totalProfissionais"
+                        >
+                            0
+                        </div>
+
+                        <span class="status-indicador">
+                            Profissionais cadastrados
+                        </span>
 
                     </div>
 
@@ -307,45 +201,30 @@
 
 
 
-                <!-- INDICADOR 3 -->
+                <!-- UNIDADES -->
 
-                <div class="indicador-card">
+                <div class="card-indicador">
 
-                    <div class="indicador-topo">
-
-                        <span class="indicador-icone">
-                            🦷
-                        </span>
-
-                        <span class="indicador-status status-bom">
-                            Bom
-                        </span>
-
+                    <div class="icone-indicador">
+                        🏥
                     </div>
 
+                    <div>
 
-                    <h3>
-                        Saúde Bucal
-                    </h3>
-
-
-                    <div class="indicador-valor">
-                        76%
-                    </div>
-
-
-                    <p>
-                        Acompanhamento das ações
-                        de saúde bucal.
-                    </p>
-
-
-                    <div class="barra-indicador">
+                        <h3>
+                            Unidades de Saúde
+                        </h3>
 
                         <div
-                            class="barra-progresso"
-                            style="width: 76%;"
-                        ></div>
+                            class="valor-indicador"
+                            id="totalUnidades"
+                        >
+                            0
+                        </div>
+
+                        <span class="status-indicador">
+                            Unidades cadastradas
+                        </span>
 
                     </div>
 
@@ -353,45 +232,30 @@
 
 
 
-                <!-- INDICADOR 4 -->
+                <!-- AGENDAMENTOS -->
 
-                <div class="indicador-card">
+                <div class="card-indicador">
 
-                    <div class="indicador-topo">
-
-                        <span class="indicador-icone">
-                            ❤️
-                        </span>
-
-                        <span class="indicador-status status-atencao">
-                            Atenção
-                        </span>
-
+                    <div class="icone-indicador">
+                        📅
                     </div>
 
+                    <div>
 
-                    <h3>
-                        Hipertensão e Diabetes
-                    </h3>
-
-
-                    <div class="indicador-valor">
-                        61%
-                    </div>
-
-
-                    <p>
-                        Acompanhamento de pessoas com
-                        condições crônicas.
-                    </p>
-
-
-                    <div class="barra-indicador">
+                        <h3>
+                            Agendamentos
+                        </h3>
 
                         <div
-                            class="barra-progresso"
-                            style="width: 61%;"
-                        ></div>
+                            class="valor-indicador"
+                            id="totalAgendamentos"
+                        >
+                            0
+                        </div>
+
+                        <span class="status-indicador">
+                            Agendamentos registrados
+                        </span>
 
                     </div>
 
@@ -404,67 +268,76 @@
 
             <!-- RESUMO -->
 
-            <section class="card resumo-indicadores">
+            <section class="resumo-indicadores">
 
-                <h3>
-                    Resumo dos indicadores
-                </h3>
+                <div class="card">
+
+                    <h2>
+                        Resumo do sistema
+                    </h2>
+
+                    <p>
+                        Os números abaixo são carregados diretamente
+                        da API do Sistema de Gestão APS.
+                    </p>
 
 
-                <div class="resumo-grid">
+                    <div class="resumo-grid">
 
 
-                    <div class="resumo-item">
+                        <div class="resumo-item">
 
-                        <span>
-                            Total de indicadores
-                        </span>
+                            <span>
+                                Pacientes
+                            </span>
 
-                        <strong>
-                            4
-                        </strong>
+                            <strong id="resumoPacientes">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="resumo-item">
+
+                            <span>
+                                Profissionais
+                            </span>
+
+                            <strong id="resumoProfissionais">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="resumo-item">
+
+                            <span>
+                                Unidades
+                            </span>
+
+                            <strong id="resumoUnidades">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="resumo-item">
+
+                            <span>
+                                Agendamentos
+                            </span>
+
+                            <strong id="resumoAgendamentos">
+                                0
+                            </strong>
+
+                        </div>
+
 
                     </div>
-
-
-                    <div class="resumo-item">
-
-                        <span>
-                            Indicadores ótimos
-                        </span>
-
-                        <strong>
-                            1
-                        </strong>
-
-                    </div>
-
-
-                    <div class="resumo-item">
-
-                        <span>
-                            Indicadores bons
-                        </span>
-
-                        <strong>
-                            2
-                        </strong>
-
-                    </div>
-
-
-                    <div class="resumo-item">
-
-                        <span>
-                            Indicadores em atenção
-                        </span>
-
-                        <strong>
-                            1
-                        </strong>
-
-                    </div>
-
 
                 </div>
 
@@ -492,7 +365,169 @@
     </footer>
 
 
-    <script src="../js/script.js"></script>
+
+    <!-- SCRIPT -->
+
+    <script>
+
+        const API =
+            "http://localhost:8080/api";
+
+
+        async function carregarIndicadores() {
+
+            try {
+
+                const [
+
+                    respostaPacientes,
+
+                    respostaProfissionais,
+
+                    respostaUnidades,
+
+                    respostaAgendamentos
+
+                ] = await Promise.all([
+
+                    fetch(`${API}/pacientes`),
+
+                    fetch(`${API}/profissionais`),
+
+                    fetch(`${API}/unidades-saude`),
+
+                    fetch(`${API}/agendamentos`)
+
+                ]);
+
+
+                if (
+
+                    !respostaPacientes.ok ||
+
+                    !respostaProfissionais.ok ||
+
+                    !respostaUnidades.ok ||
+
+                    !respostaAgendamentos.ok
+
+                ) {
+
+                    throw new Error(
+                        "Não foi possível consultar a API."
+                    );
+
+                }
+
+
+                const pacientes =
+                    await respostaPacientes.json();
+
+
+                const profissionais =
+                    await respostaProfissionais.json();
+
+
+                const unidades =
+                    await respostaUnidades.json();
+
+
+                const agendamentos =
+                    await respostaAgendamentos.json();
+
+
+                const totalPacientes =
+                    pacientes.length;
+
+
+                const totalProfissionais =
+                    profissionais.length;
+
+
+                const totalUnidades =
+                    unidades.length;
+
+
+                const totalAgendamentos =
+                    agendamentos.length;
+
+
+
+                // CARDS
+
+                document.getElementById(
+                    "totalPacientes"
+                ).textContent =
+                    totalPacientes;
+
+
+                document.getElementById(
+                    "totalProfissionais"
+                ).textContent =
+                    totalProfissionais;
+
+
+                document.getElementById(
+                    "totalUnidades"
+                ).textContent =
+                    totalUnidades;
+
+
+                document.getElementById(
+                    "totalAgendamentos"
+                ).textContent =
+                    totalAgendamentos;
+
+
+
+                // RESUMO
+
+                document.getElementById(
+                    "resumoPacientes"
+                ).textContent =
+                    totalPacientes;
+
+
+                document.getElementById(
+                    "resumoProfissionais"
+                ).textContent =
+                    totalProfissionais;
+
+
+                document.getElementById(
+                    "resumoUnidades"
+                ).textContent =
+                    totalUnidades;
+
+
+                document.getElementById(
+                    "resumoAgendamentos"
+                ).textContent =
+                    totalAgendamentos;
+
+
+            } catch (erro) {
+
+                console.error(
+                    "Erro ao carregar indicadores:",
+                    erro
+                );
+
+
+                alert(
+                    "Não foi possível carregar os indicadores. " +
+                    "Verifique se a API está em execução."
+                );
+
+            }
+
+        }
+
+
+        carregarIndicadores();
+
+    </script>
+
 
 </body>
 

@@ -68,7 +68,7 @@
 
 
             <a href="dashboard.html">
-                🏠 Dashboard
+                📊 Dashboard
             </a>
 
 
@@ -78,7 +78,12 @@
 
 
             <a href="pacientes.html">
-                🏥 Pacientes
+                🧑‍⚕️ Pacientes
+            </a>
+
+
+            <a href="profissionais.html">
+                👨‍⚕️ Profissionais
             </a>
 
 
@@ -91,7 +96,7 @@
 
 
             <a href="unidades.html">
-                🏨 Unidades de Saúde
+                🏥 Unidades de Saúde
             </a>
 
 
@@ -164,21 +169,30 @@
                     <div class="form-grid">
 
 
+                        <!-- PACIENTE -->
+
                         <div class="campo">
 
                             <label for="pacienteAgendamento">
                                 Paciente
                             </label>
 
-                            <input
-                                type="text"
+                            <select
                                 id="pacienteAgendamento"
-                                placeholder="Nome do paciente"
                                 required
                             >
 
+                                <option value="">
+                                    Carregando pacientes...
+                                </option>
+
+                            </select>
+
                         </div>
 
+
+
+                        <!-- PROFISSIONAL -->
 
                         <div class="campo">
 
@@ -186,15 +200,22 @@
                                 Profissional
                             </label>
 
-                            <input
-                                type="text"
+                            <select
                                 id="profissionalAgendamento"
-                                placeholder="Nome do profissional"
                                 required
                             >
 
+                                <option value="">
+                                    Carregando profissionais...
+                                </option>
+
+                            </select>
+
                         </div>
 
+
+
+                        <!-- DATA -->
 
                         <div class="campo">
 
@@ -211,6 +232,9 @@
                         </div>
 
 
+
+                        <!-- HORÁRIO -->
+
                         <div class="campo">
 
                             <label for="horaAgendamento">
@@ -225,6 +249,9 @@
 
                         </div>
 
+
+
+                        <!-- TIPO -->
 
                         <div class="campo">
 
@@ -270,6 +297,9 @@
                         </div>
 
 
+
+                        <!-- UNIDADE -->
+
                         <div class="campo">
 
                             <label for="unidadeAgendamento">
@@ -282,19 +312,7 @@
                             >
 
                                 <option value="">
-                                    Selecione
-                                </option>
-
-                                <option value="UBS Nova Esperança">
-                                    UBS Nova Esperança
-                                </option>
-
-                                <option value="UBS Centro">
-                                    UBS Centro
-                                </option>
-
-                                <option value="UBS São José">
-                                    UBS São José
+                                    Carregando unidades...
                                 </option>
 
                             </select>
@@ -304,6 +322,9 @@
 
                     </div>
 
+
+
+                    <!-- AÇÕES -->
 
                     <div class="form-acoes">
 
@@ -406,6 +427,10 @@
                                 </th>
 
                                 <th>
+                                    Status
+                                </th>
+
+                                <th>
                                     Ações
                                 </th>
 
@@ -417,103 +442,13 @@
 
                         <tbody id="listaAgendamentos">
 
-
                             <tr>
 
-                                <td>
-                                    Maria da Silva
-                                </td>
-
-                                <td>
-                                    Dr. João Pereira
-                                </td>
-
-                                <td>
-                                    15/09/2026
-                                </td>
-
-                                <td>
-                                    08:00
-                                </td>
-
-                                <td>
-                                    Consulta médica
-                                </td>
-
-                                <td>
-                                    UBS Nova Esperança
-                                </td>
-
-                                <td>
-
-                                    <button
-                                        class="botao-acao"
-                                        onclick="visualizarAgendamento('Maria da Silva')"
-                                    >
-                                        👁️
-                                    </button>
-
-
-                                    <button
-                                        class="botao-acao botao-excluir"
-                                        onclick="excluirAgendamento(this)"
-                                    >
-                                        🗑️
-                                    </button>
-
+                                <td colspan="8">
+                                    Carregando agendamentos...
                                 </td>
 
                             </tr>
-
-
-
-                            <tr>
-
-                                <td>
-                                    João Pereira
-                                </td>
-
-                                <td>
-                                    Enf. Ana Souza
-                                </td>
-
-                                <td>
-                                    15/09/2026
-                                </td>
-
-                                <td>
-                                    09:00
-                                </td>
-
-                                <td>
-                                    Consulta de enfermagem
-                                </td>
-
-                                <td>
-                                    UBS Centro
-                                </td>
-
-                                <td>
-
-                                    <button
-                                        class="botao-acao"
-                                        onclick="visualizarAgendamento('João Pereira')"
-                                    >
-                                        👁️
-                                    </button>
-
-
-                                    <button
-                                        class="botao-acao botao-excluir"
-                                        onclick="excluirAgendamento(this)"
-                                    >
-                                        🗑️
-                                    </button>
-
-                                </td>
-
-                            </tr>
-
 
                         </tbody>
 
@@ -547,6 +482,809 @@
 
 
     <script src="../js/script.js"></script>
+
+
+    <!-- SCRIPT DA TELA DE AGENDAMENTOS -->
+
+    <script>
+
+        const API = "http://localhost:8080/api";
+
+        let pacientes = [];
+        let profissionais = [];
+        let unidades = [];
+        let agendamentos = [];
+
+
+
+        /* =========================
+           ABRIR FORMULÁRIO
+        ========================= */
+
+        function abrirFormularioAgendamento() {
+
+            document.getElementById(
+                "formularioAgendamento"
+            ).style.display = "block";
+
+            carregarDadosFormulario();
+
+        }
+
+
+
+        /* =========================
+           FECHAR FORMULÁRIO
+        ========================= */
+
+        function fecharFormularioAgendamento() {
+
+            document.getElementById(
+                "formularioAgendamento"
+            ).style.display = "none";
+
+            document.getElementById(
+                "formAgendamento"
+            ).reset();
+
+        }
+
+
+
+        /* =========================
+           CARREGAR PACIENTES
+        ========================= */
+
+        async function carregarPacientes() {
+
+            const select =
+                document.getElementById(
+                    "pacienteAgendamento"
+                );
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        `${API}/pacientes`
+                    );
+
+                if (!resposta.ok) {
+                    throw new Error(
+                        "Erro ao carregar pacientes"
+                    );
+                }
+
+                pacientes = await resposta.json();
+
+                select.innerHTML =
+                    '<option value="">Selecione o paciente</option>';
+
+                pacientes.forEach(paciente => {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value = paciente.id;
+
+                    option.textContent =
+                        `${paciente.nome} - CPF: ${paciente.cpf}`;
+
+                    select.appendChild(option);
+
+                });
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                select.innerHTML =
+                    '<option value="">Erro ao carregar pacientes</option>';
+
+            }
+
+        }
+
+
+
+        /* =========================
+           CARREGAR PROFISSIONAIS
+        ========================= */
+
+        async function carregarProfissionais() {
+
+            const select =
+                document.getElementById(
+                    "profissionalAgendamento"
+                );
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        `${API}/profissionais`
+                    );
+
+                if (!resposta.ok) {
+                    throw new Error(
+                        "Erro ao carregar profissionais"
+                    );
+                }
+
+                profissionais =
+                    await resposta.json();
+
+                select.innerHTML =
+                    '<option value="">Selecione o profissional</option>';
+
+                profissionais.forEach(profissional => {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value =
+                        profissional.id;
+
+                    option.textContent =
+                        `${profissional.nome} - ${profissional.especialidade}`;
+
+                    select.appendChild(option);
+
+                });
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                select.innerHTML =
+                    '<option value="">Erro ao carregar profissionais</option>';
+
+            }
+
+        }
+
+
+
+        /* =========================
+           CARREGAR UNIDADES
+        ========================= */
+
+        async function carregarUnidades() {
+
+            const select =
+                document.getElementById(
+                    "unidadeAgendamento"
+                );
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        `${API}/unidades-saude`
+                    );
+
+                if (!resposta.ok) {
+                    throw new Error(
+                        "Erro ao carregar unidades"
+                    );
+                }
+
+                unidades =
+                    await resposta.json();
+
+                select.innerHTML =
+                    '<option value="">Selecione a unidade</option>';
+
+                unidades.forEach(unidade => {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value =
+                        unidade.id;
+
+                    option.textContent =
+                        unidade.nome;
+
+                    select.appendChild(option);
+
+                });
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                select.innerHTML =
+                    '<option value="">Erro ao carregar unidades</option>';
+
+            }
+
+        }
+
+
+
+        /* =========================
+           CARREGAR DADOS DO FORMULÁRIO
+        ========================= */
+
+        async function carregarDadosFormulario() {
+
+            await Promise.all([
+
+                carregarPacientes(),
+
+                carregarProfissionais(),
+
+                carregarUnidades()
+
+            ]);
+
+        }
+
+
+
+        /* =========================
+           SALVAR AGENDAMENTO
+        ========================= */
+
+        document
+            .getElementById("formAgendamento")
+            .addEventListener(
+                "submit",
+                async function (evento) {
+
+                    evento.preventDefault();
+
+                    const pacienteId =
+                        document.getElementById(
+                            "pacienteAgendamento"
+                        ).value;
+
+                    const profissionalId =
+                        document.getElementById(
+                            "profissionalAgendamento"
+                        ).value;
+
+                    const data =
+                        document.getElementById(
+                            "dataAgendamento"
+                        ).value;
+
+                    const horario =
+                        document.getElementById(
+                            "horaAgendamento"
+                        ).value;
+
+                    const tipoAtendimento =
+                        document.getElementById(
+                            "tipoAtendimento"
+                        ).value;
+
+                    const unidadeSaudeId =
+                        document.getElementById(
+                            "unidadeAgendamento"
+                        ).value;
+
+
+
+                    const agendamento = {
+
+                        data: data,
+
+                        horario: horario,
+
+                        tipoAtendimento:
+                            tipoAtendimento,
+
+                        status: "AGENDADO",
+
+                        pacienteId:
+                            Number(pacienteId),
+
+                        profissionalId:
+                            Number(profissionalId),
+
+                        unidadeSaudeId:
+                            Number(unidadeSaudeId)
+
+                    };
+
+
+
+                    try {
+
+                        const resposta =
+                            await fetch(
+                                `${API}/agendamentos`,
+                                {
+
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body:
+                                        JSON.stringify(
+                                            agendamento
+                                        )
+
+                                }
+                            );
+
+
+
+                        if (!resposta.ok) {
+
+                            const erro =
+                                await resposta.text();
+
+                            console.error(
+                                "Erro da API:",
+                                erro
+                            );
+
+                            alert(
+                                "Não foi possível salvar o agendamento."
+                            );
+
+                            return;
+
+                        }
+
+
+
+                        alert(
+                            "Agendamento salvo com sucesso!"
+                        );
+
+
+
+                        fecharFormularioAgendamento();
+
+                        carregarAgendamentos();
+
+                    } catch (erro) {
+
+                        console.error(erro);
+
+                        alert(
+                            "Erro de conexão com a API."
+                        );
+
+                    }
+
+                }
+            );
+
+
+
+        /* =========================
+           CARREGAR AGENDAMENTOS
+        ========================= */
+
+        async function carregarAgendamentos() {
+
+            const tabela =
+                document.getElementById(
+                    "listaAgendamentos"
+                );
+
+            tabela.innerHTML = `
+                <tr>
+                    <td colspan="8">
+                        Carregando agendamentos...
+                    </td>
+                </tr>
+            `;
+
+
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        `${API}/agendamentos`
+                    );
+
+                if (!resposta.ok) {
+
+                    throw new Error(
+                        "Erro ao carregar agendamentos"
+                    );
+
+                }
+
+
+
+                agendamentos =
+                    await resposta.json();
+
+
+
+                tabela.innerHTML = "";
+
+
+
+                if (agendamentos.length === 0) {
+
+                    tabela.innerHTML = `
+                        <tr>
+                            <td colspan="8">
+                                Nenhum agendamento cadastrado.
+                            </td>
+                        </tr>
+                    `;
+
+                    return;
+
+                }
+
+
+
+                for (
+                    const agendamento
+                    of agendamentos
+                ) {
+
+                    const paciente =
+                        pacientes.find(
+                            p =>
+                                p.id ===
+                                agendamento.pacienteId
+                        );
+
+                    const profissional =
+                        profissionais.find(
+                            p =>
+                                p.id ===
+                                agendamento.profissionalId
+                        );
+
+                    const unidade =
+                        unidades.find(
+                            u =>
+                                u.id ===
+                                agendamento.unidadeSaudeId
+                        );
+
+
+
+                    const tr =
+                        document.createElement("tr");
+
+
+
+                    tr.innerHTML = `
+
+                        <td>
+                            ${
+                                paciente
+                                    ? paciente.nome
+                                    : "Não encontrado"
+                            }
+                        </td>
+
+                        <td>
+                            ${
+                                profissional
+                                    ? profissional.nome
+                                    : "Não encontrado"
+                            }
+                        </td>
+
+                        <td>
+                            ${formatarData(agendamento.data)}
+                        </td>
+
+                        <td>
+                            ${agendamento.horario || ""}
+                        </td>
+
+                        <td>
+                            ${agendamento.tipoAtendimento || ""}
+                        </td>
+
+                        <td>
+                            ${
+                                unidade
+                                    ? unidade.nome
+                                    : "Não encontrada"
+                            }
+                        </td>
+
+                        <td>
+                            ${agendamento.status || ""}
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="botao-acao"
+                                onclick="visualizarAgendamentoAPI(${agendamento.id})"
+                                title="Visualizar"
+                            >
+                                👁️
+                            </button>
+
+                            <button
+                                class="botao-acao botao-excluir"
+                                onclick="excluirAgendamentoAPI(${agendamento.id})"
+                                title="Excluir"
+                            >
+                                🗑️
+                            </button>
+
+                        </td>
+
+                    `;
+
+
+
+                    tabela.appendChild(tr);
+
+                }
+
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                tabela.innerHTML = `
+                    <tr>
+                        <td colspan="8">
+                            Erro ao carregar os agendamentos.
+                        </td>
+                    </tr>
+                `;
+
+            }
+
+        }
+
+
+
+        /* =========================
+           FORMATAR DATA
+        ========================= */
+
+        function formatarData(data) {
+
+            if (!data) {
+                return "";
+            }
+
+            const partes =
+                data.split("-");
+
+            if (partes.length === 3) {
+
+                return `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+            }
+
+            return data;
+
+        }
+
+
+
+        /* =========================
+           VISUALIZAR
+        ========================= */
+
+        function visualizarAgendamentoAPI(id) {
+
+            const agendamento =
+                agendamentos.find(
+                    item =>
+                        item.id === id
+                );
+
+            if (!agendamento) {
+                return;
+            }
+
+
+
+            const paciente =
+                pacientes.find(
+                    p =>
+                        p.id ===
+                        agendamento.pacienteId
+                );
+
+            const profissional =
+                profissionais.find(
+                    p =>
+                        p.id ===
+                        agendamento.profissionalId
+                );
+
+            const unidade =
+                unidades.find(
+                    u =>
+                        u.id ===
+                        agendamento.unidadeSaudeId
+                );
+
+
+
+            alert(
+
+                "Agendamento\n\n" +
+
+                "Paciente: " +
+                (paciente
+                    ? paciente.nome
+                    : "Não encontrado") +
+
+                "\nProfissional: " +
+                (profissional
+                    ? profissional.nome
+                    : "Não encontrado") +
+
+                "\nData: " +
+                formatarData(
+                    agendamento.data
+                ) +
+
+                "\nHorário: " +
+                agendamento.horario +
+
+                "\nAtendimento: " +
+                agendamento.tipoAtendimento +
+
+                "\nUnidade: " +
+                (unidade
+                    ? unidade.nome
+                    : "Não encontrada") +
+
+                "\nStatus: " +
+                agendamento.status
+
+            );
+
+        }
+
+
+
+        /* =========================
+           EXCLUIR
+        ========================= */
+
+        async function excluirAgendamentoAPI(id) {
+
+            const confirmar =
+                confirm(
+                    "Deseja realmente excluir este agendamento?"
+                );
+
+            if (!confirmar) {
+                return;
+            }
+
+
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        `${API}/agendamentos/${id}`,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
+
+
+                if (!resposta.ok) {
+
+                    alert(
+                        "Não foi possível excluir o agendamento."
+                    );
+
+                    return;
+
+                }
+
+
+
+                alert(
+                    "Agendamento excluído com sucesso!"
+                );
+
+
+
+                carregarAgendamentos();
+
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                alert(
+                    "Erro de conexão com a API."
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================
+           BUSCA
+        ========================= */
+
+        function buscarAgendamento() {
+
+            const texto =
+                document
+                    .getElementById(
+                        "buscarAgendamento"
+                    )
+                    .value
+                    .toLowerCase();
+
+
+
+            const linhas =
+                document.querySelectorAll(
+                    "#listaAgendamentos tr"
+                );
+
+
+
+            linhas.forEach(linha => {
+
+                const conteudo =
+                    linha.textContent
+                        .toLowerCase();
+
+                if (
+                    conteudo.includes(texto)
+                ) {
+
+                    linha.style.display = "";
+
+                } else {
+
+                    linha.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+
+
+        /* =========================
+           INICIALIZAÇÃO
+        ========================= */
+
+        async function inicializarPagina() {
+
+            await carregarPacientes();
+
+            await carregarProfissionais();
+
+            await carregarUnidades();
+
+            await carregarAgendamentos();
+
+        }
+
+
+
+        inicializarPagina();
+
+    </script>
+
 
 </body>
 

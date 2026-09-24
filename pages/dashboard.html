@@ -5,11 +5,17 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Dashboard - Sistema de Gestão APS</title>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
 
 </head>
 
@@ -35,8 +41,8 @@
 
             <span>👤</span>
 
-            <span>
-                Administrador
+            <span id="nomeUsuario">
+                Usuário
             </span>
 
         </div>
@@ -54,7 +60,10 @@
 
             <h2>Menu</h2>
 
-            <a href="dashboard.html" class="menu-ativo">
+            <a
+                href="dashboard.html"
+                class="menu-ativo"
+            >
                 🏠 Dashboard
             </a>
 
@@ -63,7 +72,11 @@
             </a>
 
             <a href="pacientes.html">
-                🏥 Pacientes
+                🧑 Pacientes
+            </a>
+
+            <a href="profissionais.html">
+                👨‍⚕️ Profissionais
             </a>
 
             <a href="agendamentos.html">
@@ -71,14 +84,17 @@
             </a>
 
             <a href="unidades.html">
-                🏨 Unidades de Saúde
+                🏥 Unidades de Saúde
             </a>
 
             <a href="indicadores.html">
                 📊 Indicadores
             </a>
 
-            <a href="../index.html">
+            <a
+                href="../index.html"
+                id="linkSair"
+            >
                 🚪 Sair
             </a>
 
@@ -106,6 +122,9 @@
 
             <section class="dashboard-cards">
 
+
+                <!-- USUÁRIOS -->
+
                 <div class="dashboard-card">
 
                     <div class="dashboard-card-icone">
@@ -118,8 +137,8 @@
                             Usuários
                         </h3>
 
-                        <strong>
-                            25
+                        <strong id="totalUsuarios">
+                            0
                         </strong>
 
                         <p>
@@ -131,10 +150,12 @@
                 </div>
 
 
+                <!-- PACIENTES -->
+
                 <div class="dashboard-card">
 
                     <div class="dashboard-card-icone">
-                        🏥
+                        🧑
                     </div>
 
                     <div>
@@ -143,8 +164,8 @@
                             Pacientes
                         </h3>
 
-                        <strong>
-                            120
+                        <strong id="totalPacientes">
+                            0
                         </strong>
 
                         <p>
@@ -155,6 +176,8 @@
 
                 </div>
 
+
+                <!-- AGENDAMENTOS -->
 
                 <div class="dashboard-card">
 
@@ -168,8 +191,8 @@
                             Agendamentos
                         </h3>
 
-                        <strong>
-                            18
+                        <strong id="totalAgendamentos">
+                            0
                         </strong>
 
                         <p>
@@ -181,10 +204,12 @@
                 </div>
 
 
+                <!-- UNIDADES -->
+
                 <div class="dashboard-card">
 
                     <div class="dashboard-card-icone">
-                        🏨
+                        🏥
                     </div>
 
                     <div>
@@ -193,8 +218,8 @@
                             Unidades
                         </h3>
 
-                        <strong>
-                            8
+                        <strong id="totalUnidades">
+                            0
                         </strong>
 
                         <p>
@@ -218,7 +243,11 @@
 
                 <div class="acesso-grid">
 
-                    <a href="usuarios.html" class="acesso-card">
+
+                    <a
+                        href="usuarios.html"
+                        class="acesso-card"
+                    >
 
                         <span>👥</span>
 
@@ -233,9 +262,12 @@
                     </a>
 
 
-                    <a href="pacientes.html" class="acesso-card">
+                    <a
+                        href="pacientes.html"
+                        class="acesso-card"
+                    >
 
-                        <span>🏥</span>
+                        <span>🧑</span>
 
                         <h3>
                             Pacientes
@@ -248,7 +280,28 @@
                     </a>
 
 
-                    <a href="agendamentos.html" class="acesso-card">
+                    <a
+                        href="profissionais.html"
+                        class="acesso-card"
+                    >
+
+                        <span>👨‍⚕️</span>
+
+                        <h3>
+                            Profissionais
+                        </h3>
+
+                        <p>
+                            Gerenciar profissionais
+                        </p>
+
+                    </a>
+
+
+                    <a
+                        href="agendamentos.html"
+                        class="acesso-card"
+                    >
 
                         <span>📅</span>
 
@@ -263,7 +316,10 @@
                     </a>
 
 
-                    <a href="indicadores.html" class="acesso-card">
+                    <a
+                        href="indicadores.html"
+                        class="acesso-card"
+                    >
 
                         <span>📊</span>
 
@@ -299,6 +355,199 @@
         </p>
 
     </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        const API = "http://localhost:8080/api";
+
+
+        /*
+         * CARREGAR DADOS DO DASHBOARD
+         */
+
+        async function carregarDashboard() {
+
+            try {
+
+                const [
+                    respostaUsuarios,
+                    respostaPacientes,
+                    respostaAgendamentos,
+                    respostaUnidades
+                ] = await Promise.all([
+
+                    fetch(`${API}/usuarios`),
+
+                    fetch(`${API}/pacientes`),
+
+                    fetch(`${API}/agendamentos`),
+
+                    fetch(`${API}/unidades-saude`)
+
+                ]);
+
+
+                if (
+                    !respostaUsuarios.ok ||
+                    !respostaPacientes.ok ||
+                    !respostaAgendamentos.ok ||
+                    !respostaUnidades.ok
+                ) {
+
+                    throw new Error(
+                        "Não foi possível consultar a API."
+                    );
+
+                }
+
+
+                const usuarios =
+                    await respostaUsuarios.json();
+
+                const pacientes =
+                    await respostaPacientes.json();
+
+                const agendamentos =
+                    await respostaAgendamentos.json();
+
+                const unidades =
+                    await respostaUnidades.json();
+
+
+                /*
+                 * ATUALIZAR CARDS
+                 */
+
+                document.getElementById(
+                    "totalUsuarios"
+                ).textContent =
+                    usuarios.length;
+
+
+                document.getElementById(
+                    "totalPacientes"
+                ).textContent =
+                    pacientes.length;
+
+
+                document.getElementById(
+                    "totalAgendamentos"
+                ).textContent =
+                    agendamentos.length;
+
+
+                document.getElementById(
+                    "totalUnidades"
+                ).textContent =
+                    unidades.length;
+
+
+            } catch (erro) {
+
+                console.error(
+                    "Erro ao carregar Dashboard:",
+                    erro
+                );
+
+                alert(
+                    "Não foi possível carregar os dados do Dashboard. " +
+                    "Verifique se a API está em execução."
+                );
+
+            }
+
+        }
+
+
+        /*
+         * LOGIN
+         */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const usuarioSalvo =
+                    localStorage.getItem(
+                        "usuarioLogado"
+                    );
+
+
+                if (!usuarioSalvo) {
+
+                    alert(
+                        "Você precisa fazer login para acessar o sistema."
+                    );
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                const usuario =
+                    JSON.parse(usuarioSalvo);
+
+
+                const nomeUsuario =
+                    document.getElementById(
+                        "nomeUsuario"
+                    );
+
+
+                if (
+                    nomeUsuario &&
+                    usuario.nome
+                ) {
+
+                    nomeUsuario.textContent =
+                        usuario.nome;
+
+                }
+
+
+                /*
+                 * SAIR
+                 */
+
+                const linkSair =
+                    document.getElementById(
+                        "linkSair"
+                    );
+
+
+                if (linkSair) {
+
+                    linkSair.addEventListener(
+                        "click",
+                        function () {
+
+                            localStorage.removeItem(
+                                "usuarioLogado"
+                            );
+
+                        }
+                    );
+
+                }
+
+
+                /*
+                 * CARREGAR DADOS
+                 */
+
+                carregarDashboard();
+
+            }
+
+        );
+
+    </script>
 
 
     <script src="../js/script.js"></script>

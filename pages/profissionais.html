@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Profissionais - Sistema de Gestão APS</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Sistema de Gestão da Atenção Primária
+            </h1>
+
+            <p>
+                Gestão de profissionais
+            </p>
+
+        </div>
+
+        <div class="usuario-logado">
+
+            <span>👤</span>
+
+            <span id="nomeUsuario">
+                Usuário
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+
+    <main class="dashboard-container">
+
+
+        <!-- MENU LATERAL -->
+
+        <aside class="menu-lateral">
+
+            <h2>Menu</h2>
+
+            <a href="dashboard.html">
+                🏠 Dashboard
+            </a>
+
+            <a href="usuarios.html">
+                👥 Usuários
+            </a>
+
+            <a href="pacientes.html">
+                🧑 Pacientes
+            </a>
+
+            <a href="profissionais.html" class="menu-ativo">
+                👨‍⚕️ Profissionais
+            </a>
+
+            <a href="agendamentos.html">
+                📅 Agendamentos
+            </a>
+
+            <a href="unidades.html">
+                🏥 Unidades de Saúde
+            </a>
+
+            <a href="indicadores.html">
+                📊 Indicadores
+            </a>
+
+            <a href="../index.html" id="linkSair">
+                🚪 Sair
+            </a>
+
+        </aside>
+
+
+        <!-- ÁREA PRINCIPAL -->
+
+        <section class="dashboard-content">
+
+
+            <!-- TÍTULO -->
+
+            <div class="dashboard-titulo">
+
+                <h2>
+                    Profissionais
+                </h2>
+
+                <p>
+                    Cadastro e gerenciamento de profissionais de saúde
+                </p>
+
+            </div>
+
+
+            <!-- BARRA DE AÇÕES -->
+
+            <div class="barra-acoes">
+
+                <button
+                    class="botao-principal"
+                    onclick="abrirFormularioProfissional()"
+                >
+                    ➕ Novo Profissional
+                </button>
+
+
+                <div class="campo-busca">
+
+                    <input
+                        type="text"
+                        id="buscarProfissional"
+                        placeholder="Buscar profissional..."
+                        onkeyup="buscarProfissional()"
+                    >
+
+                    <button
+                        onclick="buscarProfissional()"
+                    >
+                        🔍
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- FORMULÁRIO -->
+
+            <section
+                id="formularioProfissional"
+                class="formulario-container"
+                style="display: none;"
+            >
+
+                <div class="formulario-cabecalho">
+
+                    <h2 id="tituloFormulario">
+                        Cadastro de Profissional
+                    </h2>
+
+                    <button
+                        type="button"
+                        onclick="fecharFormularioProfissional()"
+                    >
+                        ✖
+                    </button>
+
+                </div>
+
+
+                <form id="formProfissional">
+
+
+                    <input
+                        type="hidden"
+                        id="idProfissional"
+                    >
+
+
+                    <!-- NOME -->
+
+                    <div class="campo">
+
+                        <label for="nomeProfissional">
+                            Nome completo
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nomeProfissional"
+                            placeholder="Digite o nome completo"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- CPF -->
+
+                    <div class="campo">
+
+                        <label for="cpfProfissional">
+                            CPF
+                        </label>
+
+                        <input
+                            type="text"
+                            id="cpfProfissional"
+                            placeholder="Digite o CPF"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- ESPECIALIDADE -->
+
+                    <div class="campo">
+
+                        <label for="especialidadeProfissional">
+                            Especialidade
+                        </label>
+
+                        <input
+                            type="text"
+                            id="especialidadeProfissional"
+                            placeholder="Ex.: Enfermagem"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- REGISTRO -->
+
+                    <div class="campo">
+
+                        <label for="registroProfissional">
+                            Registro profissional
+                        </label>
+
+                        <input
+                            type="text"
+                            id="registroProfissional"
+                            placeholder="Ex.: COREN-PI-54321"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- TELEFONE -->
+
+                    <div class="campo">
+
+                        <label for="telefoneProfissional">
+                            Telefone
+                        </label>
+
+                        <input
+                            type="text"
+                            id="telefoneProfissional"
+                            placeholder="Digite o telefone"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- E-MAIL -->
+
+                    <div class="campo">
+
+                        <label for="emailProfissional">
+                            E-mail
+                        </label>
+
+                        <input
+                            type="email"
+                            id="emailProfissional"
+                            placeholder="Digite o e-mail"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- BOTÕES -->
+
+                    <div class="formulario-botoes">
+
+                        <button
+                            type="submit"
+                            class="botao-principal"
+                        >
+                            💾 Salvar Profissional
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="botao-secundario"
+                            onclick="fecharFormularioProfissional()"
+                        >
+                            Cancelar
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- TABELA -->
+
+            <section class="tabela-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Nome
+                            </th>
+
+                            <th>
+                                CPF
+                            </th>
+
+                            <th>
+                                Especialidade
+                            </th>
+
+                            <th>
+                                Registro
+                            </th>
+
+                            <th>
+                                Telefone
+                            </th>
+
+                            <th>
+                                E-mail
+                            </th>
+
+                            <th>
+                                Ações
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="listaProfissionais">
+
+                    </tbody>
+
+                </table>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+
+    <footer class="rodape">
+
+        <p>
+            Sistema de Gestão da Atenção Primária à Saúde
+        </p>
+
+        <p>
+            Grupo 2
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        const API =
+            "http://localhost:8080/api/profissionais";
+
+
+        let profissionais = [];
+
+
+        /*
+         * CARREGAR PROFISSIONAIS
+         */
+
+        async function carregarProfissionais() {
+
+            try {
+
+                const resposta =
+                    await fetch(API);
+
+
+                if (!resposta.ok) {
+
+                    throw new Error(
+                        "Erro ao carregar profissionais."
+                    );
+
+                }
+
+
+                profissionais =
+                    await resposta.json();
+
+
+                renderizarProfissionais(
+                    profissionais
+                );
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                alert(
+                    "Não foi possível carregar os profissionais."
+                );
+
+            }
+
+        }
+
+
+        /*
+         * RENDERIZAR TABELA
+         */
+
+        function renderizarProfissionais(
+            lista
+        ) {
+
+            const tabela =
+                document.getElementById(
+                    "listaProfissionais"
+                );
+
+
+            tabela.innerHTML = "";
+
+
+            if (lista.length === 0) {
+
+                tabela.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            style="text-align: center;"
+                        >
+                            Nenhum profissional encontrado.
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+
+            }
+
+
+            lista.forEach(
+                profissional => {
+
+                    const linha =
+                        document.createElement("tr");
+
+
+                    linha.innerHTML = `
+
+                        <td>
+                            ${profissional.nome || ""}
+                        </td>
+
+                        <td>
+                            ${profissional.cpf || ""}
+                        </td>
+
+                        <td>
+                            ${profissional.especialidade || ""}
+                        </td>
+
+                        <td>
+                            ${profissional.registroProfissional || ""}
+                        </td>
+
+                        <td>
+                            ${profissional.telefone || ""}
+                        </td>
+
+                        <td>
+                            ${profissional.email || ""}
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="botao-secundario"
+                                onclick="visualizarProfissional(${profissional.id})"
+                            >
+                                👁️
+                            </button>
+
+                            <button
+                                class="botao-secundario"
+                                onclick="editarProfissional(${profissional.id})"
+                            >
+                                ✏️
+                            </button>
+
+                            <button
+                                class="botao-secundario"
+                                onclick="excluirProfissional(${profissional.id})"
+                            >
+                                🗑️
+                            </button>
+
+                        </td>
+
+                    `;
+
+
+                    tabela.appendChild(linha);
+
+                }
+            );
+
+        }
+
+
+        /*
+         * ABRIR FORMULÁRIO
+         */
+
+        function abrirFormularioProfissional() {
+
+            document.getElementById(
+                "formularioProfissional"
+            ).style.display = "block";
+
+
+            document.getElementById(
+                "tituloFormulario"
+            ).textContent =
+                "Cadastro de Profissional";
+
+
+            document.getElementById(
+                "formProfissional"
+            ).reset();
+
+
+            document.getElementById(
+                "idProfissional"
+            ).value = "";
+
+        }
+
+
+        /*
+         * FECHAR FORMULÁRIO
+         */
+
+        function fecharFormularioProfissional() {
+
+            document.getElementById(
+                "formularioProfissional"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "formProfissional"
+            ).reset();
+
+
+            document.getElementById(
+                "idProfissional"
+            ).value = "";
+
+        }
+
+
+        /*
+         * SALVAR / EDITAR
+         */
+
+        document.getElementById(
+            "formProfissional"
+        ).addEventListener(
+            "submit",
+            async function (evento) {
+
+                evento.preventDefault();
+
+
+                const id =
+                    document.getElementById(
+                        "idProfissional"
+                    ).value;
+
+
+                const profissional = {
+
+                    nome:
+                        document.getElementById(
+                            "nomeProfissional"
+                        ).value,
+
+                    cpf:
+                        document.getElementById(
+                            "cpfProfissional"
+                        ).value,
+
+                    especialidade:
+                        document.getElementById(
+                            "especialidadeProfissional"
+                        ).value,
+
+                    registroProfissional:
+                        document.getElementById(
+                            "registroProfissional"
+                        ).value,
+
+                    telefone:
+                        document.getElementById(
+                            "telefoneProfissional"
+                        ).value,
+
+                    email:
+                        document.getElementById(
+                            "emailProfissional"
+                        ).value
+
+                };
+
+
+                try {
+
+                    const resposta =
+                        await fetch(
+                            id
+                                ? `${API}/${id}`
+                                : API,
+                            {
+
+                                method:
+                                    id
+                                        ? "PUT"
+                                        : "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        profissional
+                                    )
+
+                            }
+                        );
+
+
+                    if (!resposta.ok) {
+
+                        throw new Error(
+                            "Erro ao salvar profissional."
+                        );
+
+                    }
+
+
+                    alert(
+                        id
+                            ? "Profissional atualizado com sucesso!"
+                            : "Profissional cadastrado com sucesso!"
+                    );
+
+
+                    fecharFormularioProfissional();
+
+                    carregarProfissionais();
+
+
+                } catch (erro) {
+
+                    console.error(erro);
+
+                    alert(
+                        "Não foi possível salvar o profissional."
+                    );
+
+                }
+
+            }
+        );
+
+
+        /*
+         * VISUALIZAR
+         */
+
+        async function visualizarProfissional(
+            id
+        ) {
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        `${API}/${id}`
+                    );
+
+
+                if (!resposta.ok) {
+
+                    throw new Error(
+                        "Profissional não encontrado."
+                    );
+
+                }
+
+
+                const profissional =
+                    await resposta.json();
+
+
+                alert(
+
+                    "Profissional\n\n" +
+
+                    "Nome: " +
+                    profissional.nome +
+
+                    "\nCPF: " +
+                    profissional.cpf +
+
+                    "\nEspecialidade: " +
+                    profissional.especialidade +
+
+                    "\nRegistro: " +
+                    profissional.registroProfissional +
+
+                    "\nTelefone: " +
+                    profissional.telefone +
+
+                    "\nE-mail: " +
+                    profissional.email
+
+                );
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                alert(
+                    "Não foi possível visualizar o profissional."
+                );
+
+            }
+
+        }
+
+
+        /*
+         * EDITAR
+         */
+
+        async function editarProfissional(
+            id
+        ) {
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        `${API}/${id}`
+                    );
+
+
+                if (!resposta.ok) {
+
+                    throw new Error(
+                        "Profissional não encontrado."
+                    );
+
+                }
+
+
+                const profissional =
+                    await resposta.json();
+
+
+                document.getElementById(
+                    "idProfissional"
+                ).value =
+                    profissional.id;
+
+
+                document.getElementById(
+                    "nomeProfissional"
+                ).value =
+                    profissional.nome || "";
+
+
+                document.getElementById(
+                    "cpfProfissional"
+                ).value =
+                    profissional.cpf || "";
+
+
+                document.getElementById(
+                    "especialidadeProfissional"
+                ).value =
+                    profissional.especialidade || "";
+
+
+                document.getElementById(
+                    "registroProfissional"
+                ).value =
+                    profissional.registroProfissional || "";
+
+
+                document.getElementById(
+                    "telefoneProfissional"
+                ).value =
+                    profissional.telefone || "";
+
+
+                document.getElementById(
+                    "emailProfissional"
+                ).value =
+                    profissional.email || "";
+
+
+                document.getElementById(
+                    "tituloFormulario"
+                ).textContent =
+                    "Editar Profissional";
+
+
+                document.getElementById(
+                    "formularioProfissional"
+                ).style.display =
+                    "block";
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                alert(
+                    "Não foi possível carregar o profissional."
+                );
+
+            }
+
+        }
+
+
+        /*
+         * EXCLUIR
+         */
+
+        async function excluirProfissional(
+            id
+        ) {
+
+            const confirmar =
+                confirm(
+                    "Deseja realmente excluir este profissional?"
+                );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        `${API}/${id}`,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
+
+                if (!resposta.ok) {
+
+                    throw new Error(
+                        "Erro ao excluir profissional."
+                    );
+
+                }
+
+
+                alert(
+                    "Profissional excluído com sucesso!"
+                );
+
+
+                carregarProfissionais();
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                alert(
+                    "Não foi possível excluir o profissional."
+                );
+
+            }
+
+        }
+
+
+        /*
+         * BUSCA
+         */
+
+        function buscarProfissional() {
+
+            const termo =
+                document.getElementById(
+                    "buscarProfissional"
+                ).value
+                .toLowerCase()
+                .trim();
+
+
+            const resultado =
+                profissionais.filter(
+                    profissional =>
+
+                        (profissional.nome || "")
+                            .toLowerCase()
+                            .includes(termo)
+
+                        ||
+
+                        (profissional.cpf || "")
+                            .toLowerCase()
+                            .includes(termo)
+
+                        ||
+
+                        (profissional.especialidade || "")
+                            .toLowerCase()
+                            .includes(termo)
+
+                        ||
+
+                        (profissional.registroProfissional || "")
+                            .toLowerCase()
+                            .includes(termo)
+
+                );
+
+
+            renderizarProfissionais(
+                resultado
+            );
+
+        }
+
+
+        /*
+         * LOGIN / USUÁRIO
+         */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const usuarioSalvo =
+                    localStorage.getItem(
+                        "usuarioLogado"
+                    );
+
+
+                if (!usuarioSalvo) {
+
+                    alert(
+                        "Você precisa fazer login para acessar o sistema."
+                    );
+
+
+                    window.location.href =
+                        "login.html";
+
+
+                    return;
+
+                }
+
+
+                const usuario =
+                    JSON.parse(usuarioSalvo);
+
+
+                const nomeUsuario =
+                    document.getElementById(
+                        "nomeUsuario"
+                    );
+
+
+                if (
+                    nomeUsuario &&
+                    usuario.nome
+                ) {
+
+                    nomeUsuario.textContent =
+                        usuario.nome;
+
+                }
+
+
+                const linkSair =
+                    document.getElementById(
+                        "linkSair"
+                    );
+
+
+                if (linkSair) {
+
+                    linkSair.addEventListener(
+                        "click",
+                        function () {
+
+                            localStorage.removeItem(
+                                "usuarioLogado"
+                            );
+
+                        }
+                    );
+
+                }
+
+
+                carregarProfissionais();
+
+            }
+
+        );
+
+    </script>
+
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

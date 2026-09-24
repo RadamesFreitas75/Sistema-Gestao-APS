@@ -5,21 +5,15 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Pacientes - Sistema de Gestão APS</title>
 
-    <link
-        rel="stylesheet"
-        href="../css/style.css"
-    >
+    <link rel="stylesheet" href="../css/style.css">
 
 </head>
 
-<body class="pagina-dashboard">
+<body>
 
     <!-- CABEÇALHO -->
 
@@ -32,7 +26,7 @@
             </h1>
 
             <p>
-                Painel de gerenciamento
+                Gestão de pacientes
             </p>
 
         </div>
@@ -41,8 +35,8 @@
 
             <span>👤</span>
 
-            <span>
-                Administrador
+            <span id="nomeUsuario">
+                Usuário
             </span>
 
         </div>
@@ -50,7 +44,7 @@
     </header>
 
 
-    <!-- ÁREA PRINCIPAL -->
+    <!-- CONTEÚDO PRINCIPAL -->
 
     <main class="dashboard-container">
 
@@ -59,52 +53,44 @@
 
         <aside class="menu-lateral">
 
-            <h2>
-                Menu
-            </h2>
-
+            <h2>Menu</h2>
 
             <a href="dashboard.html">
                 🏠 Dashboard
             </a>
 
-
             <a href="usuarios.html">
                 👥 Usuários
             </a>
 
-
-            <a
-                href="pacientes.html"
-                class="menu-ativo"
-            >
-                🏥 Pacientes
+            <a href="pacientes.html" class="menu-ativo">
+                🧑‍⚕️ Pacientes
             </a>
 
+            <a href="profissionais.html">
+                👨‍⚕️ Profissionais
+            </a>
 
             <a href="agendamentos.html">
                 📅 Agendamentos
             </a>
 
-
             <a href="unidades.html">
-                🏨 Unidades de Saúde
+                🏥 Unidades de Saúde
             </a>
-
 
             <a href="indicadores.html">
                 📊 Indicadores
             </a>
 
-
-            <a href="../index.html">
+            <a href="../index.html" id="linkSair">
                 🚪 Sair
             </a>
 
         </aside>
 
 
-        <!-- CONTEÚDO -->
+        <!-- ÁREA PRINCIPAL -->
 
         <section class="dashboard-content">
 
@@ -118,23 +104,40 @@
                 </h2>
 
                 <p>
-                    Gerenciamento dos pacientes cadastrados
-                    na Atenção Primária à Saúde
+                    Cadastro e gerenciamento de pacientes
                 </p>
 
             </div>
 
 
-            <!-- BOTÃO -->
+            <!-- BARRA DE AÇÕES -->
 
             <div class="barra-acoes">
 
                 <button
-                    class="botao"
+                    class="botao-principal"
                     onclick="abrirFormularioPaciente()"
                 >
-                    + Novo paciente
+                    ➕ Novo Paciente
                 </button>
+
+
+                <div class="campo-busca">
+
+                    <input
+                        type="text"
+                        id="buscarPaciente"
+                        placeholder="Buscar paciente..."
+                        onkeyup="buscarPaciente()"
+                    >
+
+                    <button
+                        onclick="buscarPaciente()"
+                    >
+                        🔍
+                    </button>
+
+                </div>
 
             </div>
 
@@ -143,143 +146,191 @@
 
             <section
                 id="formularioPaciente"
-                class="card formulario-paciente"
+                class="formulario-container"
                 style="display: none;"
             >
 
-                <h3>
-                    Cadastro de paciente
-                </h3>
+                <div class="formulario-cabecalho">
+
+                    <h2>
+                        Cadastro de Paciente
+                    </h2>
+
+                    <button
+                        type="button"
+                        onclick="fecharFormularioPaciente()"
+                    >
+                        ✖
+                    </button>
+
+                </div>
 
 
                 <form id="formPaciente">
 
 
-                    <div class="form-grid">
+                    <!-- NOME -->
 
+                    <div class="campo">
 
-                        <div class="campo">
+                        <label for="nomePaciente">
+                            Nome completo
+                        </label>
 
-                            <label for="nomePaciente">
-                                Nome completo
-                            </label>
-
-                            <input
-                                type="text"
-                                id="nomePaciente"
-                                placeholder="Digite o nome completo"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="campo">
-
-                            <label for="cpfPaciente">
-                                CPF
-                            </label>
-
-                            <input
-                                type="text"
-                                id="cpfPaciente"
-                                placeholder="Digite o CPF"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="campo">
-
-                            <label for="dataNascimento">
-                                Data de nascimento
-                            </label>
-
-                            <input
-                                type="date"
-                                id="dataNascimento"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="campo">
-
-                            <label for="sexoPaciente">
-                                Sexo
-                            </label>
-
-                            <select id="sexoPaciente" required>
-
-                                <option value="">
-                                    Selecione
-                                </option>
-
-                                <option value="Feminino">
-                                    Feminino
-                                </option>
-
-                                <option value="Masculino">
-                                    Masculino
-                                </option>
-
-                                <option value="Outro">
-                                    Outro
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="campo">
-
-                            <label for="telefonePaciente">
-                                Telefone
-                            </label>
-
-                            <input
-                                type="tel"
-                                id="telefonePaciente"
-                                placeholder="Digite o telefone"
-                            >
-
-                        </div>
-
-
-                        <div class="campo">
-
-                            <label for="enderecoPaciente">
-                                Endereço
-                            </label>
-
-                            <input
-                                type="text"
-                                id="enderecoPaciente"
-                                placeholder="Digite o endereço"
-                            >
-
-                        </div>
-
+                        <input
+                            type="text"
+                            id="nomePaciente"
+                            name="nomePaciente"
+                            placeholder="Digite o nome completo"
+                            required
+                        >
 
                     </div>
 
 
-                    <div class="form-acoes">
+                    <!-- CPF -->
+
+                    <div class="campo">
+
+                        <label for="cpfPaciente">
+                            CPF
+                        </label>
+
+                        <input
+                            type="text"
+                            id="cpfPaciente"
+                            name="cpfPaciente"
+                            placeholder="Digite o CPF"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- DATA DE NASCIMENTO -->
+
+                    <div class="campo">
+
+                        <label for="dataNascimento">
+                            Data de nascimento
+                        </label>
+
+                        <input
+                            type="date"
+                            id="dataNascimento"
+                            name="dataNascimento"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- SEXO -->
+
+                    <div class="campo">
+
+                        <label for="sexoPaciente">
+                            Sexo
+                        </label>
+
+                        <select
+                            id="sexoPaciente"
+                            name="sexoPaciente"
+                            required
+                        >
+
+                            <option value="">
+                                Selecione
+                            </option>
+
+                            <option value="Feminino">
+                                Feminino
+                            </option>
+
+                            <option value="Masculino">
+                                Masculino
+                            </option>
+
+                            <option value="Outro">
+                                Outro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- TELEFONE -->
+
+                    <div class="campo">
+
+                        <label for="telefonePaciente">
+                            Telefone
+                        </label>
+
+                        <input
+                            type="text"
+                            id="telefonePaciente"
+                            name="telefonePaciente"
+                            placeholder="Digite o telefone"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- ENDEREÇO -->
+
+                    <div class="campo">
+
+                        <label for="enderecoPaciente">
+                            Endereço
+                        </label>
+
+                        <input
+                            type="text"
+                            id="enderecoPaciente"
+                            name="enderecoPaciente"
+                            placeholder="Digite o endereço"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- E-MAIL -->
+
+                    <div class="campo">
+
+                        <label for="emailPaciente">
+                            E-mail
+                        </label>
+
+                        <input
+                            type="email"
+                            id="emailPaciente"
+                            name="emailPaciente"
+                            placeholder="Digite o e-mail"
+                        >
+
+                    </div>
+
+
+                    <!-- BOTÕES -->
+
+                    <div class="formulario-botoes">
 
                         <button
                             type="submit"
-                            class="botao"
+                            class="botao-principal"
                         >
-                            Salvar paciente
+                            💾 Salvar Paciente
                         </button>
 
 
                         <button
                             type="button"
-                            class="botao botao-secundario"
+                            class="botao-secundario"
                             onclick="fecharFormularioPaciente()"
                         >
                             Cancelar
@@ -287,181 +338,63 @@
 
                     </div>
 
-
                 </form>
 
             </section>
 
 
-            <!-- LISTA DE PACIENTES -->
+            <!-- TABELA -->
 
-            <section class="card tabela-container">
+            <section class="tabela-container">
 
-                <div class="tabela-cabecalho">
+                <table>
 
-                    <div>
+                    <thead>
 
-                        <h3>
-                            Pacientes cadastrados
-                        </h3>
+                        <tr>
 
-                        <p>
-                            Lista de pacientes registrados
-                            no sistema
-                        </p>
+                            <th>
+                                Nome
+                            </th>
 
-                    </div>
+                            <th>
+                                CPF
+                            </th>
 
+                            <th>
+                                Data de nascimento
+                            </th>
 
-                    <div>
+                            <th>
+                                Sexo
+                            </th>
 
-                        <input
-                            type="text"
-                            id="buscarPaciente"
-                            class="campo-busca"
-                            placeholder="🔎 Buscar paciente..."
-                            onkeyup="buscarPaciente()"
-                        >
+                            <th>
+                                Telefone
+                            </th>
 
-                    </div>
+                            <th>
+                                Ações
+                            </th>
 
-                </div>
+                        </tr>
 
-
-                <div class="tabela-scroll">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-
-                                <th>
-                                    Nome
-                                </th>
-
-                                <th>
-                                    CPF
-                                </th>
-
-                                <th>
-                                    Nascimento
-                                </th>
-
-                                <th>
-                                    Sexo
-                                </th>
-
-                                <th>
-                                    Telefone
-                                </th>
-
-                                <th>
-                                    Ações
-                                </th>
-
-                            </tr>
-
-                        </thead>
+                    </thead>
 
 
-                        <tbody id="listaPacientes">
+                    <!--
+                        A tabela começa vazia.
+                        Os pacientes serão carregados
+                        automaticamente pela API.
+                    -->
 
+                    <tbody id="listaPacientes">
 
-                            <tr>
+                    </tbody>
 
-                                <td>
-                                    Maria da Silva
-                                </td>
-
-                                <td>
-                                    000.000.000-00
-                                </td>
-
-                                <td>
-                                    15/03/1985
-                                </td>
-
-                                <td>
-                                    Feminino
-                                </td>
-
-                                <td>
-                                    (86) 99999-9999
-                                </td>
-
-                                <td>
-
-                                    <button
-                                        class="botao-acao"
-                                        onclick="visualizarPaciente('Maria da Silva')"
-                                    >
-                                        👁️
-                                    </button>
-
-                                    <button
-                                        class="botao-acao botao-excluir"
-                                        onclick="excluirPaciente(this)"
-                                    >
-                                        🗑️
-                                    </button>
-
-                                </td>
-
-                            </tr>
-
-
-                            <tr>
-
-                                <td>
-                                    João Pereira
-                                </td>
-
-                                <td>
-                                    111.111.111-11
-                                </td>
-
-                                <td>
-                                    22/08/1978
-                                </td>
-
-                                <td>
-                                    Masculino
-                                </td>
-
-                                <td>
-                                    (86) 98888-8888
-                                </td>
-
-                                <td>
-
-                                    <button
-                                        class="botao-acao"
-                                        onclick="visualizarPaciente('João Pereira')"
-                                    >
-                                        👁️
-                                    </button>
-
-                                    <button
-                                        class="botao-acao botao-excluir"
-                                        onclick="excluirPaciente(this)"
-                                    >
-                                        🗑️
-                                    </button>
-
-                                </td>
-
-                            </tr>
-
-
-                        </tbody>
-
-                    </table>
-
-                </div>
+                </table>
 
             </section>
-
 
         </section>
 
@@ -482,6 +415,8 @@
 
     </footer>
 
+
+    <!-- JAVASCRIPT -->
 
     <script src="../js/script.js"></script>
 

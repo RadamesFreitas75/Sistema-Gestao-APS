@@ -52,4 +52,19 @@ public class UsuarioController {
                 .map(usuario -> ResponseEntity.ok(usuario))
                 .orElse(ResponseEntity.status(401).build());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(
+            @PathVariable Long id) {
+
+        return usuarioService.buscarPorId(id)
+                .map(usuario -> {
+
+                    usuarioService.excluir(id);
+
+                    return ResponseEntity.noContent().<Void>build();
+
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

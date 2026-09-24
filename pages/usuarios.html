@@ -5,7 +5,10 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Usuários - Sistema de Gestão APS</title>
 
@@ -57,7 +60,11 @@
             </a>
 
             <a href="pacientes.html">
-                🏥 Pacientes
+                🧑‍⚕️ Pacientes
+            </a>
+
+            <a href="profissionais.html">
+                👨‍⚕️ Profissionais
             </a>
 
             <a href="agendamentos.html">
@@ -65,7 +72,7 @@
             </a>
 
             <a href="unidades.html">
-                🏨 Unidades de Saúde
+                🏥 Unidades de Saúde
             </a>
 
             <a href="indicadores.html">
@@ -94,6 +101,8 @@
             </div>
 
 
+            <!-- CARD PRINCIPAL -->
+
             <div class="card">
 
                 <h3>
@@ -101,15 +110,160 @@
                 </h3>
 
                 <p>
-                    Esta área será utilizada para cadastrar,
-                    consultar e gerenciar os usuários do sistema.
+                    Cadastre e gerencie os usuários
+                    do Sistema de Gestão da Atenção Primária.
                 </p>
 
                 <br>
 
-                <button class="botao">
+                <button
+                    type="button"
+                    class="botao"
+                    id="btnNovoUsuario"
+                >
                     + Novo usuário
                 </button>
+
+            </div>
+
+
+            <!-- PESQUISA -->
+
+            <div class="card">
+
+                <h3>
+                    Pesquisar usuário
+                </h3>
+
+                <input
+                    type="text"
+                    id="campoPesquisa"
+                    placeholder="Digite o nome ou e-mail"
+                >
+
+            </div>
+
+
+            <!-- FORMULÁRIO -->
+
+            <div
+                class="card"
+                id="formularioUsuario"
+                style="display: none;"
+            >
+
+                <h3>
+                    Novo Usuário
+                </h3>
+
+                <form id="formUsuario">
+
+                    <label for="nome">
+                        Nome
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Digite o nome"
+                        required
+                    >
+
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite o e-mail"
+                        required
+                    >
+
+
+                    <label for="senha">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite a senha"
+                        required
+                    >
+
+
+                    <label for="perfil">
+                        Perfil
+                    </label>
+
+                    <select
+                        id="perfil"
+                        name="perfil"
+                        required
+                    >
+
+                        <option value="">
+                            Selecione o perfil
+                        </option>
+
+                        <option value="ADMIN">
+                            Administrador
+                        </option>
+
+                        <option value="RECEPCIONISTA">
+                            Recepcionista
+                        </option>
+
+                    </select>
+
+
+                    <br><br>
+
+                    <button
+                        type="submit"
+                        class="botao"
+                    >
+                        Salvar usuário
+                    </button>
+
+                    <button
+                        type="button"
+                        class="botao"
+                        id="btnCancelar"
+                    >
+                        Cancelar
+                    </button>
+
+                </form>
+
+                <p id="mensagemUsuario"></p>
+
+            </div>
+
+
+            <!-- LISTA DE USUÁRIOS -->
+
+            <div class="card">
+
+                <h3>
+                    Lista de usuários
+                </h3>
+
+                <div
+                    id="listaUsuarios"
+                    style="overflow-x: auto;"
+                >
+
+                    <p>
+                        Carregando usuários...
+                    </p>
+
+                </div>
 
             </div>
 
@@ -132,6 +286,481 @@
 
 
     <script src="../js/script.js"></script>
+
+
+    <script>
+
+        const API_USUARIOS =
+            "http://localhost:8080/api/usuarios";
+
+
+        let usuarios = [];
+
+
+        const btnNovoUsuario =
+            document.getElementById("btnNovoUsuario");
+
+        const formularioUsuario =
+            document.getElementById("formularioUsuario");
+
+        const btnCancelar =
+            document.getElementById("btnCancelar");
+
+        const formUsuario =
+            document.getElementById("formUsuario");
+
+        const mensagemUsuario =
+            document.getElementById("mensagemUsuario");
+
+        const listaUsuarios =
+            document.getElementById("listaUsuarios");
+
+        const campoPesquisa =
+            document.getElementById("campoPesquisa");
+
+
+        /* =========================
+           ABRIR FORMULÁRIO
+        ========================= */
+
+        btnNovoUsuario.addEventListener("click", function () {
+
+            formularioUsuario.style.display = "block";
+
+            btnNovoUsuario.style.display = "none";
+
+            document.getElementById("nome").focus();
+
+        });
+
+
+        /* =========================
+           CANCELAR
+        ========================= */
+
+        btnCancelar.addEventListener("click", function () {
+
+            formularioUsuario.style.display = "none";
+
+            btnNovoUsuario.style.display = "inline-block";
+
+            formUsuario.reset();
+
+            mensagemUsuario.textContent = "";
+
+        });
+
+
+        /* =========================
+           CARREGAR USUÁRIOS
+        ========================= */
+
+        async function carregarUsuarios() {
+
+            try {
+
+                const resposta =
+                    await fetch(API_USUARIOS);
+
+                if (!resposta.ok) {
+
+                    throw new Error(
+                        "Não foi possível carregar os usuários."
+                    );
+
+                }
+
+                usuarios =
+                    await resposta.json();
+
+                renderizarUsuarios(usuarios);
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                listaUsuarios.innerHTML = `
+                    <p>
+                        Erro ao carregar os usuários.
+                        Verifique se a API está funcionando.
+                    </p>
+                `;
+
+            }
+
+        }
+
+
+        /* =========================
+           RENDERIZAR LISTA
+        ========================= */
+
+        function renderizarUsuarios(lista) {
+
+            if (!lista || lista.length === 0) {
+
+                listaUsuarios.innerHTML = `
+                    <p>
+                        Nenhum usuário cadastrado.
+                    </p>
+                `;
+
+                return;
+
+            }
+
+
+            let tabela = `
+
+                <table style="width: 100%; border-collapse: collapse;">
+
+                    <thead>
+
+                        <tr>
+
+                            <th style="text-align: left; padding: 10px;">
+                                ID
+                            </th>
+
+                            <th style="text-align: left; padding: 10px;">
+                                Nome
+                            </th>
+
+                            <th style="text-align: left; padding: 10px;">
+                                E-mail
+                            </th>
+
+                            <th style="text-align: left; padding: 10px;">
+                                Perfil
+                            </th>
+
+                            <th style="text-align: left; padding: 10px;">
+                                Ações
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+            `;
+
+
+            lista.forEach(function (usuario) {
+
+                tabela += `
+
+                    <tr>
+
+                        <td style="padding: 10px;">
+                            ${usuario.id ?? ""}
+                        </td>
+
+                        <td style="padding: 10px;">
+                            ${usuario.nome ?? ""}
+                        </td>
+
+                        <td style="padding: 10px;">
+                            ${usuario.email ?? ""}
+                        </td>
+
+                        <td style="padding: 10px;">
+                            ${usuario.perfil ?? ""}
+                        </td>
+
+                        <td style="padding: 10px;">
+
+                            <button
+                                type="button"
+                                class="botao"
+                                onclick="visualizarUsuario(${usuario.id})"
+                            >
+                                Visualizar
+                            </button>
+
+                            <button
+                                type="button"
+                                class="botao"
+                                onclick="excluirUsuario(${usuario.id})"
+                            >
+                                Excluir
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            });
+
+
+            tabela += `
+
+                    </tbody>
+
+                </table>
+
+            `;
+
+
+            listaUsuarios.innerHTML = tabela;
+
+        }
+
+
+        /* =========================
+           CADASTRAR USUÁRIO
+        ========================= */
+
+        formUsuario.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const usuario = {
+
+                    nome:
+                        document.getElementById("nome").value,
+
+                    email:
+                        document.getElementById("email").value,
+
+                    senha:
+                        document.getElementById("senha").value,
+
+                    perfil:
+                        document.getElementById("perfil").value
+
+                };
+
+
+                try {
+
+                    const resposta =
+                        await fetch(
+                            API_USUARIOS,
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(usuario)
+                            }
+                        );
+
+
+                    if (!resposta.ok) {
+
+                        const erroTexto =
+                            await resposta.text();
+
+                        throw new Error(
+                            erroTexto ||
+                            "Erro ao cadastrar usuário."
+                        );
+
+                    }
+
+
+                    mensagemUsuario.textContent =
+                        "Usuário cadastrado com sucesso!";
+
+
+                    formUsuario.reset();
+
+
+                    await carregarUsuarios();
+
+
+                    setTimeout(function () {
+
+                        formularioUsuario.style.display =
+                            "none";
+
+                        btnNovoUsuario.style.display =
+                            "inline-block";
+
+                        mensagemUsuario.textContent =
+                            "";
+
+                    }, 1200);
+
+
+                } catch (erro) {
+
+                    console.error(erro);
+
+                    mensagemUsuario.textContent =
+                        "Erro ao cadastrar usuário.";
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           VISUALIZAR USUÁRIO
+        ========================= */
+
+        async function visualizarUsuario(id) {
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        `${API_USUARIOS}/${id}`
+                    );
+
+
+                if (!resposta.ok) {
+
+                    throw new Error(
+                        "Usuário não encontrado."
+                    );
+
+                }
+
+
+                const usuario =
+                    await resposta.json();
+
+
+                alert(
+                    "ID: " + (usuario.id ?? "") +
+                    "\nNome: " + (usuario.nome ?? "") +
+                    "\nE-mail: " + (usuario.email ?? "") +
+                    "\nPerfil: " + (usuario.perfil ?? "")
+                );
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                alert(
+                    "Não foi possível consultar o usuário."
+                );
+
+            }
+
+        }
+
+
+        /* =========================
+           EXCLUIR USUÁRIO
+        ========================= */
+
+        async function excluirUsuario(id) {
+
+            const confirmar =
+                confirm(
+                    "Deseja realmente excluir este usuário?"
+                );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        `${API_USUARIOS}/${id}`,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
+
+                if (!resposta.ok) {
+
+                    throw new Error(
+                        "Erro ao excluir usuário."
+                    );
+
+                }
+
+
+                alert(
+                    "Usuário excluído com sucesso!"
+                );
+
+
+                await carregarUsuarios();
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                alert(
+                    "Não foi possível excluir o usuário."
+                );
+
+            }
+
+        }
+
+
+        /* =========================
+           PESQUISA
+        ========================= */
+
+        campoPesquisa.addEventListener(
+            "input",
+            function () {
+
+                const termo =
+                    campoPesquisa.value
+                        .toLowerCase()
+                        .trim();
+
+
+                const resultado =
+                    usuarios.filter(function (usuario) {
+
+                        const nome =
+                            (usuario.nome ?? "")
+                                .toLowerCase();
+
+                        const email =
+                            (usuario.email ?? "")
+                                .toLowerCase();
+
+
+                        return (
+                            nome.includes(termo) ||
+                            email.includes(termo)
+                        );
+
+                    });
+
+
+                renderizarUsuarios(resultado);
+
+            }
+        );
+
+
+        /* =========================
+           INICIAR
+        ========================= */
+
+        carregarUsuarios();
+
+    </script>
 
 </body>
 

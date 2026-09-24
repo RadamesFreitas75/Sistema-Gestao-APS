@@ -28,6 +28,10 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
+    public void excluir(Long id) {
+        usuarioRepository.deleteById(id);
+    }
+
     public Optional<Usuario> login(String email, String senha) {
 
         Optional<Usuario> usuarioEncontrado =
